@@ -12,30 +12,21 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-seri
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(0,255,136,.04) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(0,170,255,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
 
 /* HEADER */
-header{border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;background:rgba(10,10,15,.96);backdrop-filter:blur(20px);z-index:100}
+header{border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;background:rgba(10,10,15,.97);backdrop-filter:blur(20px);z-index:100}
 .hi{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px}
 .logo{font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.1em}
 .hr{display:flex;align-items:center;gap:14px}
 .dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-
-/* WS STATUS */
-.ws-status{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;padding:3px 8px;border:1px solid;border-radius:0}
+.ws-status{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;padding:3px 9px;border:1px solid}
 .ws-live{color:var(--green);border-color:var(--green)}
 .ws-conn{color:var(--yellow);border-color:var(--yellow)}
 .ws-dead{color:var(--red);border-color:var(--red)}
-.ws-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-.ws-dot.blink{animation:pulse 1s infinite}
-
+.ws-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1s infinite}
 .mono{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim)}
 
-/* TICKER TAPE */
-.ticker-wrap{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;height:32px;display:flex;align-items:center}
-.ticker{display:flex;gap:0;animation:ticker 30s linear infinite;white-space:nowrap}
-.ticker:hover{animation-play-state:paused}
-.tick-item{display:flex;align-items:center;gap:8px;padding:0 24px;font-family:'Space Mono',monospace;font-size:11px;border-right:1px solid var(--border)}
-.tick-sym{color:var(--muted);font-size:10px}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* TRADINGVIEW TICKER TAPE */
+.tv-ticker{border-bottom:1px solid var(--border)}
 
 /* CONTAINER */
 .c{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
@@ -46,43 +37,49 @@ header{border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:
 .rlabel::before{content:'';display:block;width:30px;height:1px;background:var(--accent)}
 h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,5vw,50px);line-height:1.05;margin-bottom:12px}
 h1 em{color:var(--accent);font-style:italic}
-.sub{font-size:13px;color:var(--muted);max-width:600px;line-height:1.6;font-weight:300}
+.sub{font-size:13px;color:var(--muted);max-width:640px;line-height:1.6;font-weight:300}
 
 /* STATS BAR */
-.sbar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
+.sbar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:22px 0}
 .sc{background:var(--surface);padding:14px 16px;transition:background .15s;position:relative;overflow:hidden}
 .sc:hover{background:var(--surface2)}
-.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s;transform-origin:left}
-.sc.flash::after{transform:scaleX(1)}
 .sl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
 .sv{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;line-height:1;transition:color .3s}
 .sch{font-family:'Space Mono',monospace;font-size:10px;margin-top:3px}
 .up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--yellow)}
-
-/* FLASH ANIMATION */
-@keyframes flashUp{0%{background:rgba(0,255,136,.15)}100%{background:transparent}}
-@keyframes flashDn{0%{background:rgba(255,51,102,.15)}100%{background:transparent}}
-.flash-up{animation:flashUp .4s ease}
-.flash-dn{animation:flashDn .4s ease}
-
-/* SKELETON */
+@keyframes flashUp{0%{background:rgba(0,255,136,.18)}100%{background:transparent}}
+@keyframes flashDn{0%{background:rgba(255,51,102,.18)}100%{background:transparent}}
+.flash-up{animation:flashUp .5s ease}
+.flash-dn{animation:flashDn .5s ease}
 .sk{background:linear-gradient(90deg,var(--border) 25%,var(--surface2) 50%,var(--border) 75%);background-size:200% 100%;animation:shim 1.5s infinite;border-radius:2px;display:inline-block}
 @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 /* SECTION */
 .sec{padding:32px 0;border-bottom:1px solid var(--border)}
-.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:22px}
+.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
 .sn{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em}
 h2{font-family:'DM Serif Display',serif;font-size:23px}
 .st{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);padding:3px 8px;margin-left:auto}
 .st.live{color:var(--accent);border-color:var(--accent)}
+.st.tv{color:#2962ff;border-color:#2962ff}
+
+/* TV WIDGET WRAPPER */
+.tv-wrap{border:1px solid var(--border);overflow:hidden;background:var(--surface)}
+.tv-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding:8px 12px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.tv-label::before{content:'';width:6px;height:6px;background:#2962ff;border-radius:50%;display:block}
+
+/* CHARTS GRID */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+
+/* TECH ANALYSIS GRID */
+.ta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 
 /* OVERVIEW GRID */
 .og{display:grid;grid-template-columns:2fr 1fr;gap:16px}
 .card{background:var(--surface);border:1px solid var(--border);padding:16px}
 .cl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--border)}
 
-/* PRICE TABLE */
+/* TABLE */
 table{width:100%;border-collapse:collapse}
 tr{border-bottom:1px solid var(--border);transition:background .15s}
 tr:last-child{border-bottom:none}
@@ -98,19 +95,12 @@ td{padding:10px 7px;font-family:'Space Mono',monospace;font-size:12px}
 .bwatch{color:var(--blue);border-color:var(--blue)}
 
 /* FEAR GREED */
-.mv{font-family:'DM Serif Display',serif;font-size:58px;line-height:1;margin-bottom:3px;transition:color .5s}
+.mv{font-family:'DM Serif Display',serif;font-size:56px;line-height:1;margin-bottom:3px;transition:color .5s}
 .ml{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;margin-bottom:12px}
 .mb{height:6px;background:var(--border);position:relative;overflow:hidden;margin-bottom:5px}
 .mf{height:100%;background:linear-gradient(90deg,var(--red) 0%,var(--yellow) 50%,var(--green) 100%)}
 .mc{position:absolute;top:-3px;width:2px;height:12px;background:var(--text);transition:left 1s ease}
 .ms{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--dim)}
-
-/* HEATMAP */
-.hg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.hc{padding:12px 10px;text-align:center;cursor:pointer;transition:opacity .2s}
-.hc:hover{opacity:.85}
-.hn{font-size:12px;font-weight:500;margin-bottom:4px}
-.hp{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;transition:color .3s}
 
 /* NEWS */
 .ni{display:grid;grid-template-columns:52px 1fr auto;gap:13px;align-items:start;padding:14px 0;border-bottom:1px solid var(--border);transition:padding .15s}
@@ -123,27 +113,12 @@ td{padding:10px 7px;font-family:'Space Mono',monospace;font-size:12px}
 .im{color:var(--yellow);border-color:var(--yellow)}
 .il{color:var(--muted);border-color:var(--border)}
 
-/* SIGNALS */
-.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.sig{background:var(--surface);border:1px solid var(--border);padding:14px;position:relative;overflow:hidden}
-.sig::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.sig.bull::before{background:var(--green)}
-.sig.bear::before{background:var(--red)}
-.sig.neut::before{background:var(--yellow)}
-.sitl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.siv{font-family:'Space Mono',monospace;font-size:19px;font-weight:700;margin-bottom:4px}
-.sid{font-size:12px;color:var(--muted);line-height:1.5}
-.mc2{height:32px;margin-top:8px}
-.mc2 svg{width:100%;height:100%}
-@keyframes dl{from{stroke-dashoffset:500}to{stroke-dashoffset:0}}
-.spk{stroke-dasharray:500;animation:dl 1.5s ease both}
-
 /* POLYMARKET */
 .pg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .pc{background:var(--surface);border:1px solid var(--border);padding:15px}
 .pq{font-size:13px;line-height:1.5;margin-bottom:11px}
 .po{display:flex;gap:2px;height:8px;margin-bottom:6px}
-.py{height:100%;background:var(--green);transition:width 1s ease}
+.py{height:100%;background:var(--green)}
 .pn{height:100%;background:var(--red);flex:1}
 .pl{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:11px}
 .pnote{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5}
@@ -179,22 +154,19 @@ td{padding:10px 7px;font-family:'Space Mono',monospace;font-size:12px}
 .con p{font-size:13px;line-height:1.8;margin-bottom:8px}
 .con p:last-child{margin-bottom:0}
 
-/* ERROR */
-.aerr{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.3);padding:8px 12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--red);margin:12px 0;display:none}
-
-/* LAST UPDATE BADGE */
-.upd-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+/* UPDATE BADGES */
+.upd-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
 .upd-badge{font-family:'Space Mono',monospace;font-size:10px;padding:3px 8px;border:1px solid var(--border);color:var(--muted)}
 .upd-badge.ws{color:var(--green);border-color:rgba(0,255,136,.3)}
+.upd-badge.tv-b{color:#2962ff;border-color:rgba(41,98,255,.4)}
 
 footer{padding:22px 0;border-top:1px solid var(--border)}
 .fi{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;color:var(--dim)}
 .disc{font-size:11px;color:var(--muted);line-height:1.6;margin-top:11px;padding-top:11px;border-top:1px solid var(--border);font-style:italic}
 
-@media(max-width:768px){
-  .sbar,.og{grid-template-columns:1fr}
-  .sg,.pg,.rg,.pvg{grid-template-columns:1fr}
-  .hg{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){
+  .charts-grid,.ta-grid{grid-template-columns:1fr}
+  .og,.pg,.rg,.pvg{grid-template-columns:1fr}
   .sbar{grid-template-columns:repeat(3,1fr)}
   .pls{grid-template-columns:1fr 1fr}
 }
@@ -202,12 +174,13 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
   <div class="hi">
-    <div class="logo">MARKET·ANALYST // v1.0</div>
+    <div class="logo">MARKET·ANALYST // v2.0</div>
     <div class="hr">
       <div class="ws-status ws-conn" id="wsStatus">
-        <div class="ws-dot blink"></div>
+        <div class="ws-dot"></div>
         <span id="wsText">連線中...</span>
       </div>
       <div class="dot"></div>
@@ -216,49 +189,58 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
   </div>
 </header>
 
-<!-- TICKER TAPE -->
-<div class="ticker-wrap">
-  <div class="ticker" id="ticker">
-    <div class="tick-item"><span class="tick-sym">BTC</span><span id="tk-btc">--</span></div>
-    <div class="tick-item"><span class="tick-sym">ETH</span><span id="tk-eth">--</span></div>
-    <div class="tick-item"><span class="tick-sym">SOL</span><span id="tk-sol">--</span></div>
-    <div class="tick-item"><span class="tick-sym">XRP</span><span id="tk-xrp">--</span></div>
-    <div class="tick-item"><span class="tick-sym">AVAX</span><span id="tk-avax">--</span></div>
-    <div class="tick-item"><span class="tick-sym">BNB</span><span id="tk-bnb">--</span></div>
-    <div class="tick-item"><span class="tick-sym">DOGE</span><span id="tk-doge">--</span></div>
-    <div class="tick-item"><span class="tick-sym">LINK</span><span id="tk-link">--</span></div>
-    <!-- duplicate for seamless loop -->
-    <div class="tick-item"><span class="tick-sym">BTC</span><span id="tk-btc2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">ETH</span><span id="tk-eth2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">SOL</span><span id="tk-sol2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">XRP</span><span id="tk-xrp2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">AVAX</span><span id="tk-avax2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">BNB</span><span id="tk-bnb2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">DOGE</span><span id="tk-doge2">--</span></div>
-    <div class="tick-item"><span class="tick-sym">LINK</span><span id="tk-link2">--</span></div>
+<!-- ① TRADINGVIEW TICKER TAPE -->
+<div class="tv-ticker">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"proName":"BINANCE:BTCUSDT","title":"BTC"},
+        {"proName":"BINANCE:ETHUSDT","title":"ETH"},
+        {"proName":"BINANCE:SOLUSDT","title":"SOL"},
+        {"proName":"BINANCE:XRPUSDT","title":"XRP"},
+        {"proName":"BINANCE:BNBUSDT","title":"BNB"},
+        {"proName":"BINANCE:AVAXUSDT","title":"AVAX"},
+        {"proName":"BINANCE:DOGEUSDT","title":"DOGE"},
+        {"proName":"BINANCE:LINKUSDT","title":"LINK"},
+        {"proName":"BINANCE:ADAUSDT","title":"ADA"},
+        {"proName":"BINANCE:DOTUSDT","title":"DOT"},
+        {"proName":"NASDAQ:QQQ","title":"QQQ"},
+        {"proName":"TVC:GOLD","title":"黃金"},
+        {"proName":"TVC:VIX","title":"VIX"}
+      ],
+      "showSymbolLogo": true,
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "colorTheme": "dark",
+      "locale": "zh_TW"
+    }
+    </script>
   </div>
 </div>
 
 <div class="c">
+
+  <!-- HERO -->
   <div class="hero">
-    <div class="rlabel">盤前日報 · PRE-MARKET REPORT</div>
+    <div class="rlabel">盤前日報 · PRE-MARKET REPORT · LIVE</div>
     <h1>加密貨幣 &<br><em>宏觀市場</em> 分析</h1>
-    <p class="sub">價格透過 <strong>Binance WebSocket</strong> 實時串流，延遲 &lt;1 秒。恐貪指數與板塊熱力圖每 10 秒自動更新。</p>
+    <p class="sub">價格透過 <strong>Binance WebSocket</strong> 實時串流（延遲 &lt;1 秒）。K 線圖與技術分析由 <strong>TradingView</strong> 提供。恐貪指數與板塊熱力圖每 10 秒更新。</p>
   </div>
 
-  <div class="aerr" id="aerr"></div>
-
   <div class="upd-row">
-    <div class="upd-badge ws">⚡ 價格：WebSocket 實時</div>
-    <div class="upd-badge" id="fgBadge">🔄 恐貪指數：--</div>
-    <div class="upd-badge" id="secBadge">🔄 板塊：--</div>
+    <div class="upd-badge ws">⚡ 價格：Binance WebSocket 實時</div>
+    <div class="upd-badge tv-b">📊 圖表：TradingView LIVE</div>
+    <div class="upd-badge" id="fgBadge">🔄 恐貪指數：載入中</div>
+    <div class="upd-badge" id="secBadge">🔄 板塊：載入中</div>
   </div>
 
   <!-- STATS BAR -->
   <div class="sbar">
     <div class="sc" id="sc-btc"><div class="sl">BTC/USDT</div><div class="sv" id="bp">--</div><div class="sch" id="bc">--</div></div>
     <div class="sc" id="sc-eth"><div class="sl">ETH/USDT</div><div class="sv" id="ep">--</div><div class="sch" id="ec">--</div></div>
-    <div class="sc" id="sc-sol"><div class="sl">SOL/USDT</div><div class="sv" id="sp">--</div><div class="sch" id="sc2x">--</div></div>
+    <div class="sc" id="sc-sol"><div class="sl">SOL/USDT</div><div class="sv" id="sp">--</div><div class="sch" id="scx">--</div></div>
     <div class="sc" id="sc-xrp"><div class="sl">XRP/USDT</div><div class="sv" id="xp">--</div><div class="sch" id="xc">--</div></div>
     <div class="sc" id="sc-bnb"><div class="sl">BNB/USDT</div><div class="sv" id="bnbp">--</div><div class="sch" id="bnbc">--</div></div>
   </div>
@@ -268,7 +250,7 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
     <div class="sh"><div class="sn">01</div><h2>市場總覽</h2><div class="st live">⚡ WEBSOCKET LIVE</div></div>
     <div class="og">
       <div class="card">
-        <div class="cl">主要資產報價 · 實時串流（Binance）</div>
+        <div class="cl">主要資產報價 · Binance 實時</div>
         <table>
           <tr><td><div class="cn"><div class="cd" style="background:#f7931a"></div><div><div>Bitcoin</div><div class="ct">BTC</div></div></div></td><td id="bp2" class="up" style="text-align:right">--</td><td id="bc2" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="bsig">--</span></td></tr>
           <tr><td><div class="cn"><div class="cd" style="background:#627eea"></div><div><div>Ethereum</div><div class="ct">ETH</div></div></div></td><td id="ep2" style="text-align:right">--</td><td id="ec2" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="esig">--</span></td></tr>
@@ -279,7 +261,7 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
       </div>
       <div class="card">
         <div class="cl">恐貪指數 · 每10秒更新</div>
-        <div class="mv" id="fgv" style="color:var(--yellow)"><span class="sk" style="width:70px;height:52px"> </span></div>
+        <div class="mv" id="fgv" style="color:var(--yellow)"><span class="sk" style="width:70px;height:50px"> </span></div>
         <div class="ml" id="fgl">載入中...</div>
         <div class="mb"><div class="mf"></div><div class="mc" id="fgc" style="left:50%"></div></div>
         <div class="ms"><span>0 極度恐懼</span><span>50</span><span>100 貪婪</span></div>
@@ -291,7 +273,7 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- 02 NEWS -->
+  <!-- 02 BREAKING NEWS -->
   <div class="sec">
     <div class="sh"><div class="sn">02</div><h2>突發新聞</h2><div class="st">TODAY</div></div>
     <div class="ni"><div class="nt">06:30<br>EDT</div><div class="ntx">BTC 昨日急漲至 $74,300 創 40 天新高，30 分鐘內觸發逾 1.13 億美元空頭爆倉，多頭力道強勁。</div><div class="nim ih">高影響</div></div>
@@ -300,44 +282,212 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
     <div class="ni"><div class="nt">03:20<br>EDT</div><div class="ntx">T. Rowe Price 申請含 DOGE、SHIB 的加密 ETF，SEC 監管框架持續擴大納入資產種類。</div><div class="nim im">中影響</div></div>
   </div>
 
-  <!-- 03 TECHNICAL -->
+  <!-- ② TRADINGVIEW K線圖 -->
   <div class="sec">
-    <div class="sh"><div class="sn">03</div><h2>技術信號</h2><div class="st">TECHNICAL ANALYSIS</div></div>
-    <div class="sg">
-      <div class="sig bull"><div class="sitl">RSI (14日) · BTC</div><div class="siv up">~58</div><div class="sid">從超賣（29）強力反彈，突破 50 均值，動能向上未達超買。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline class="spk" points="0,36 15,38 30,35 45,32 55,28 65,22 80,18 90,14 100,10" fill="none" stroke="#00ff88" stroke-width="1.5"/></svg></div></div>
-      <div class="sig bull"><div class="sitl">MACD · BTC 日線</div><div class="siv up">金叉</div><div class="sid">MACD 穿越信號線向上，柱狀圖由負轉正，日線多頭確立。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline class="spk" points="0,30 20,28 35,25 50,20 65,16 80,12 100,8" fill="none" stroke="#00ff88" stroke-width="1.5"/><polyline points="0,32 35,28 50,23 80,17 100,15" fill="none" stroke="var(--red)" stroke-width="1" stroke-dasharray="3,3"/></svg></div></div>
-      <div class="sig neut"><div class="sitl">SMA 200 · BTC</div><div class="siv neutral">$71,200</div><div class="sid">BTC 站於 200 日均線之上（+4.4%），支撐守住，轉折確認中。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><line x1="0" y1="22" x2="100" y2="22" stroke="var(--yellow)" stroke-width=".8" stroke-dasharray="4,3"/><polyline class="spk" points="0,35 20,30 45,24 65,18 100,10" fill="none" stroke="var(--text)" stroke-width="1.5"/></svg></div></div>
-      <div class="sig bull"><div class="sitl">資金費率 · 永續合約</div><div class="siv neutral">+0.01%</div><div class="sid">由負轉微正，多頭開始主導但未過熱，槓桿擠倉風險低。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="100" y2="20" stroke="var(--border)" stroke-width=".5"/><polyline class="spk" points="0,10 25,15 50,22 80,20 100,19" fill="none" stroke="var(--yellow)" stroke-width="1.5"/></svg></div></div>
-      <div class="sig bull"><div class="sitl">布林帶 · ETH</div><div class="siv up">突破中軌</div><div class="sid">ETH 收復布林帶中軌（$2,280），若持穩可望測試上軌 $2,680。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,5 100,5" fill="none" stroke="var(--border)" stroke-width=".8"/><polyline points="0,35 100,35" fill="none" stroke="var(--border)" stroke-width=".8"/><polyline points="0,20 100,20" fill="none" stroke="var(--yellow)" stroke-width=".8" stroke-dasharray="3,2"/><polyline class="spk" points="0,38 40,28 70,18 100,15" fill="none" stroke="#00ff88" stroke-width="1.5"/></svg></div></div>
-      <div class="sig bull"><div class="sitl">鯨魚累積 · 鏈上</div><div class="siv up">+270K BTC</div><div class="sid">30 天鯨魚地址淨買入 27 萬 BTC（~187 億美元），底部信號強烈。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline class="spk" points="0,38 20,33 45,22 70,11 100,6" fill="none" stroke="#00ff88" stroke-width="1.5"/></svg></div></div>
+    <div class="sh"><div class="sn">03</div><h2>K 線圖</h2><div class="st tv">📊 TradingView LIVE</div></div>
+    <div class="charts-grid">
+      <!-- BTC Chart -->
+      <div>
+        <div class="tv-wrap">
+          <div class="tv-label">BTC/USDT · Binance · 1H</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+            {
+              "autosize": false,
+              "width": "100%",
+              "height": 380,
+              "symbol": "BINANCE:BTCUSDT",
+              "interval": "60",
+              "timezone": "Asia/Taipei",
+              "theme": "dark",
+              "style": "1",
+              "locale": "zh_TW",
+              "backgroundColor": "rgba(17, 17, 24, 1)",
+              "gridColor": "rgba(42, 42, 58, 0.5)",
+              "hide_top_toolbar": false,
+              "hide_legend": false,
+              "save_image": false,
+              "calendar": false,
+              "studies": ["RSI@tv-basicstudies","MACD@tv-basicstudies","BB@tv-basicstudies"],
+              "support_host": "https://www.tradingview.com"
+            }
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETH Chart -->
+      <div>
+        <div class="tv-wrap">
+          <div class="tv-label">ETH/USDT · Binance · 1H</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+            {
+              "autosize": false,
+              "width": "100%",
+              "height": 380,
+              "symbol": "BINANCE:ETHUSDT",
+              "interval": "60",
+              "timezone": "Asia/Taipei",
+              "theme": "dark",
+              "style": "1",
+              "locale": "zh_TW",
+              "backgroundColor": "rgba(17, 17, 24, 1)",
+              "gridColor": "rgba(42, 42, 58, 0.5)",
+              "hide_top_toolbar": false,
+              "hide_legend": false,
+              "save_image": false,
+              "calendar": false,
+              "studies": ["RSI@tv-basicstudies","MACD@tv-basicstudies","BB@tv-basicstudies"],
+              "support_host": "https://www.tradingview.com"
+            }
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOL Chart (full width) -->
+    <div class="tv-wrap">
+      <div class="tv-label">SOL/USDT · Binance · 1H</div>
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": "100%",
+          "height": 300,
+          "symbol": "BINANCE:SOLUSDT",
+          "interval": "60",
+          "timezone": "Asia/Taipei",
+          "theme": "dark",
+          "style": "1",
+          "locale": "zh_TW",
+          "backgroundColor": "rgba(17, 17, 24, 1)",
+          "gridColor": "rgba(42, 42, 58, 0.5)",
+          "hide_top_toolbar": false,
+          "save_image": false,
+          "studies": ["RSI@tv-basicstudies","MACD@tv-basicstudies"],
+          "support_host": "https://www.tradingview.com"
+        }
+        </script>
+      </div>
     </div>
   </div>
 
-  <!-- 04 HEATMAP -->
+  <!-- ③ TRADINGVIEW 技術分析信號 -->
   <div class="sec">
-    <div class="sh"><div class="sn">04</div><h2>板塊熱力圖</h2><div class="st live">🔄 每10秒更新</div></div>
-    <div class="hg" id="hg">
-      <div class="hc sk" style="height:64px"></div><div class="hc sk" style="height:64px"></div>
-      <div class="hc sk" style="height:64px"></div><div class="hc sk" style="height:64px"></div>
-      <div class="hc sk" style="height:64px"></div><div class="hc sk" style="height:64px"></div>
-      <div class="hc sk" style="height:64px"></div><div class="hc sk" style="height:64px"></div>
+    <div class="sh"><div class="sn">04</div><h2>技術分析信號</h2><div class="st tv">📊 TradingView · 買入/賣出</div></div>
+    <div class="ta-grid">
+      <!-- BTC Technical Analysis -->
+      <div class="tv-wrap">
+        <div class="tv-label">BTC/USDT 技術分析</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {
+            "interval": "1h",
+            "width": "100%",
+            "isTransparent": false,
+            "height": 400,
+            "symbol": "BINANCE:BTCUSDT",
+            "showIntervalTabs": true,
+            "displayMode": "single",
+            "locale": "zh_TW",
+            "colorTheme": "dark"
+          }
+          </script>
+        </div>
+      </div>
+
+      <!-- ETH Technical Analysis -->
+      <div class="tv-wrap">
+        <div class="tv-label">ETH/USDT 技術分析</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {
+            "interval": "1h",
+            "width": "100%",
+            "isTransparent": false,
+            "height": 400,
+            "symbol": "BINANCE:ETHUSDT",
+            "showIntervalTabs": true,
+            "displayMode": "single",
+            "locale": "zh_TW",
+            "colorTheme": "dark"
+          }
+          </script>
+        </div>
+      </div>
+
+      <!-- SOL Technical Analysis -->
+      <div class="tv-wrap">
+        <div class="tv-label">SOL/USDT 技術分析</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {
+            "interval": "1h",
+            "width": "100%",
+            "isTransparent": false,
+            "height": 400,
+            "symbol": "BINANCE:SOLUSDT",
+            "showIntervalTabs": true,
+            "displayMode": "single",
+            "locale": "zh_TW",
+            "colorTheme": "dark"
+          }
+          </script>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 05 POLYMARKET -->
+  <!-- ④ TRADINGVIEW 板塊熱力圖 -->
   <div class="sec">
-    <div class="sh"><div class="sn">05</div><h2>Polymarket 預測市場</h2><div class="st">PREDICTION ODDS</div></div>
+    <div class="sh"><div class="sn">05</div><h2>加密板塊熱力圖</h2><div class="st tv">📊 TradingView LIVE</div></div>
+    <div class="tv-wrap">
+      <div class="tv-label">加密貨幣市場熱力圖 · 即時</div>
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+        {
+          "dataSource": "Crypto",
+          "blockSize": "market_cap_calc",
+          "blockColor": "change",
+          "locale": "zh_TW",
+          "symbolUrl": "",
+          "colorTheme": "dark",
+          "hasTopBar": true,
+          "isDataSetEnabled": true,
+          "isZoomEnabled": true,
+          "hasSymbolTooltip": true,
+          "isMonoSize": false,
+          "width": "100%",
+          "height": 500
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 POLYMARKET -->
+  <div class="sec">
+    <div class="sh"><div class="sn">06</div><h2>Polymarket 預測市場</h2><div class="st">PREDICTION ODDS</div></div>
     <div class="pg">
       <div class="pc"><div class="pq">Fed 3 月 FOMC 是否降息？</div><div class="po"><div class="py" style="width:8%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 8%</span><span class="down">否 92%</span></div><div class="pnote">市場定價 3 月按兵不動機率極高，首次降息預期落在 6 月。</div></div>
       <div class="pc"><div class="pq">BTC Q1 2026 收盤 $80,000 以上？</div><div class="po"><div class="py" style="width:38%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 38%</span><span class="down">否 62%</span></div><div class="pnote">距季末 2 周需突破 $80K，方向看好但時間緊迫。</div></div>
-      <div class="pc"><div class="pq">美國 Clarity Act 2026 年通過？</div><div class="po"><div class="py" style="width:62%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 62%</span><span class="down">否 38%</span></div><div class="pnote">立法明朗化將釋放大量機構資金，通過機率超過半數，長期利多。</div></div>
+      <div class="pc"><div class="pq">美國 Clarity Act 2026 年通過？</div><div class="po"><div class="py" style="width:62%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 62%</span><span class="down">否 38%</span></div><div class="pnote">立法明朗化將釋放大量機構資金，通過機率超過半數。</div></div>
       <div class="pc"><div class="pq">ETH Q2 是否超越 $3,500？</div><div class="po"><div class="py" style="width:44%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 44%</span><span class="down">否 56%</span></div><div class="pnote">機構 ETF 買盤持續，若 BTC 先突破 ETH 輪動機率大增。</div></div>
     </div>
   </div>
 
-  <!-- 06 REDDIT -->
+  <!-- 07 REDDIT -->
   <div class="sec">
-    <div class="sh"><div class="sn">06</div><h2>Reddit 社群情緒</h2><div class="st">r/bitcoin · r/wsb</div></div>
+    <div class="sh"><div class="sn">07</div><h2>Reddit 社群情緒</h2><div class="st">r/bitcoin · r/wsb</div></div>
     <div class="rg">
       <div class="card">
         <div class="cl">r/Bitcoin 情緒分佈</div>
@@ -350,10 +500,10 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
       <div class="card">
         <div class="cl">熱門討論</div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><div style="font-size:13px">BTC 空頭爆倉 $113M</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 4.2k</div></div>
-          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><div style="font-size:13px">Voorhees 買入 2.3 萬 ETH</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 3.1k</div></div>
-          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><div style="font-size:13px">T. Rowe Price DOGE ETF</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--yellow)">⚡ 1.8k</div></div>
-          <div style="display:flex;justify-content:space-between"><div style="font-size:13px">Fed 降息時程辯論</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">💬 1.2k</div></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font-size:13px">BTC 空頭爆倉 $113M</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 4.2k</span></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font-size:13px">Voorhees 買入 2.3 萬 ETH</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 3.1k</span></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font-size:13px">T. Rowe Price DOGE ETF</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--yellow)">⚡ 1.8k</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Fed 降息時程辯論</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">💬 1.2k</span></div>
         </div>
         <div style="margin-top:11px;padding:9px;background:var(--surface2);border-left:2px solid var(--green)">
           <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:3px">情緒結論</div>
@@ -363,16 +513,16 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- 07 PORTFOLIO -->
+  <!-- 08 PORTFOLIO -->
   <div class="sec">
-    <div class="sh"><div class="sn">07</div><h2>模擬持倉損益</h2><div class="st live">⚡ 即時計算</div></div>
+    <div class="sh"><div class="sn">08</div><h2>模擬持倉損益</h2><div class="st live">⚡ 即時計算</div></div>
     <div class="pls">
-      <div class="plc"><div class="pll">總資產估值</div><div class="plv up" id="tv">--</div></div>
+      <div class="plc"><div class="pll">總資產估值</div><div class="plv up" id="tv2">--</div></div>
       <div class="plc"><div class="pll">浮動損益</div><div class="plv" id="tp">--</div></div>
       <div class="plc"><div class="pll">整體報酬率</div><div class="plv" id="tr2">--</div></div>
     </div>
     <div class="card">
-      <div class="cl">持倉明細 · 示範組合（根據 WebSocket 即時價格計算）</div>
+      <div class="cl">持倉明細 · 示範組合（WebSocket 即時計算）</div>
       <table>
         <tr><td><div class="cn"><div class="cd" style="background:#f7931a"></div>BTC</div></td><td style="font-size:11px;color:var(--muted)">0.8 BTC</td><td style="font-size:11px">成本 $68,000</td><td id="bpp" style="font-size:11px">--</td><td id="bpa" style="font-size:11px">--</td></tr>
         <tr><td><div class="cn"><div class="cd" style="background:#627eea"></div>ETH</div></td><td style="font-size:11px;color:var(--muted)">12 ETH</td><td style="font-size:11px">成本 $2,450</td><td id="epp" style="font-size:11px">--</td><td id="epa" style="font-size:11px">--</td></tr>
@@ -381,9 +531,9 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- 08 TOMORROW -->
+  <!-- 09 TOMORROW -->
   <div class="sec">
-    <div class="sh"><div class="sn">08</div><h2>明日展望</h2><div class="st">TOMORROW PREVIEW</div></div>
+    <div class="sh"><div class="sn">09</div><h2>明日展望</h2><div class="st">TOMORROW PREVIEW</div></div>
     <div class="pvg">
       <div class="pvc">
         <div class="pvt">🗓 重要經濟事件 · 03/18</div>
@@ -412,201 +562,127 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
 
 <footer>
   <div class="c">
-    <div class="fi"><span>market-analyst · v2.0 · WebSocket Edition · <span id="fd"></span></span><span>數據：Binance WS / CoinGecko / Alternative.me</span></div>
+    <div class="fi">
+      <span>market-analyst · v2.0 TradingView Edition · <span id="fd"></span></span>
+      <span>數據：Binance WS · TradingView · CoinGecko · Alternative.me</span>
+    </div>
     <div class="disc">⚠️ 本報告僅供教育與資訊參考，不構成任何投資建議。加密貨幣市場波動極大，投資存在虧損本金之風險。</div>
   </div>
 </footer>
 
 <script>
-// ─────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────
-const prices = {};       // symbol → { price, change24h }
+// ── STATE ──────────────────────────────────────
+const prices = {};
 const PORTFOLIO = [
-  { sym:'BTCUSDT', qty:0.8,  cost:68000, pp:'bpp', pa:'bpa' },
-  { sym:'ETHUSDT', qty:12,   cost:2450,  pp:'epp', pa:'epa' },
-  { sym:'SOLUSDT', qty:50,   cost:88,    pp:'spp', pa:'spa' },
+  {sym:'BTCUSDT',qty:.8, cost:68000,pp:'bpp',pa:'bpa'},
+  {sym:'ETHUSDT',qty:12, cost:2450, pp:'epp',pa:'epa'},
+  {sym:'SOLUSDT',qty:50, cost:88,   pp:'spp',pa:'spa'},
 ];
 
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
+// ── HELPERS ────────────────────────────────────
 function fmt(n){
-  if(n>=1e12) return '$'+(n/1e12).toFixed(2)+'T';
-  if(n>=1e9)  return '$'+(n/1e9).toFixed(2)+'B';
-  if(n>=1000) return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  return '$'+n.toFixed(n<1?5:2);
+  if(n>=1e12)return'$'+(n/1e12).toFixed(2)+'T';
+  if(n>=1e9) return'$'+(n/1e9).toFixed(2)+'B';
+  if(n>=1000)return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return'$'+n.toFixed(n<1?5:2);
 }
-function fp(n){ return(n>=0?'▲ +':'▼ ')+Math.abs(n).toFixed(2)+'%'; }
-function cc(n){ return n>=0?'up':'down'; }
-function set(id,html,cls){
-  const e=document.getElementById(id);
-  if(!e)return;
-  e.innerHTML=html;
-  if(cls!==undefined) e.className=cls;
-}
-function flash(el,isUp){
-  el.classList.remove('flash-up','flash-dn');
-  void el.offsetWidth;
-  el.classList.add(isUp?'flash-up':'flash-dn');
-}
-function sig(pct){
-  if(pct>3)  return{l:'強買',c:'badge bbuy'};
-  if(pct>0)  return{l:'買入',c:'badge bbuy'};
-  if(pct>-2) return{l:'觀望',c:'badge bwatch'};
-  if(pct>-5) return{l:'持有',c:'badge bhold'};
+function fp(n){return(n>=0?'▲ +':'▼ ')+Math.abs(n).toFixed(2)+'%'}
+function cc(n){return n>=0?'up':'down'}
+function set(id,html,cls){const e=document.getElementById(id);if(!e)return;e.innerHTML=html;if(cls!==undefined)e.className=cls;}
+function flash(el,isUp){el.classList.remove('flash-up','flash-dn');void el.offsetWidth;el.classList.add(isUp?'flash-up':'flash-dn');}
+function sig(p){
+  if(p>3) return{l:'強買',c:'badge bbuy'};
+  if(p>0) return{l:'買入',c:'badge bbuy'};
+  if(p>-2)return{l:'觀望',c:'badge bwatch'};
+  if(p>-5)return{l:'持有',c:'badge bhold'};
   return{l:'注意',c:'badge bsell'};
 }
-function heatColor(p){
-  if(p>=5)  return'rgba(0,255,136,.32)';
-  if(p>=2)  return'rgba(0,255,136,.2)';
-  if(p>=0)  return'rgba(0,255,136,.08)';
-  if(p>=-2) return'rgba(255,51,102,.1)';
-  if(p>=-5) return'rgba(255,51,102,.2)';
-  return'rgba(255,51,102,.32)';
-}
 
-// ─────────────────────────────────────────────
-// CLOCK
-// ─────────────────────────────────────────────
-function updateClock(){
+// ── CLOCK ──────────────────────────────────────
+function tick(){
   const n=new Date();
   set('ut',n.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'}));
   set('fd',n.toLocaleDateString('zh-TW'));
 }
-setInterval(updateClock,1000);
-updateClock();
+setInterval(tick,1000); tick();
 
-// ─────────────────────────────────────────────
-// BINANCE WEBSOCKET — REAL-TIME PRICES
-// ─────────────────────────────────────────────
-const WS_SYMBOLS = ['btcusdt','ethusdt','solusdt','xrpusdt','bnbusdt','avaxusdt','dogeusdt','linkusdt'];
-let ws, wsReconnectTimer;
-
-function connectWS(){
-  const streams = WS_SYMBOLS.map(s=>s+'@ticker').join('/');
-  ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
-
-  ws.onopen = ()=>{
-    const el = document.getElementById('wsStatus');
-    el.className='ws-status ws-live';
-    el.innerHTML='<div class="ws-dot blink"></div><span>LIVE</span>';
-    clearTimeout(wsReconnectTimer);
-  };
-
-  ws.onmessage = (e)=>{
-    const msg = JSON.parse(e.data);
-    const d = msg.data;
-    if(!d) return;
-
-    const sym   = d.s;              // e.g. BTCUSDT
-    const price = parseFloat(d.c);  // current price
-    const chg   = parseFloat(d.P);  // 24h change %
-    const prev  = prices[sym]?.price;
-
-    prices[sym] = { price, change24h: chg };
-
-    // Determine which fields to update
-    updateSymbolUI(sym, price, chg, prev);
-    updatePortfolio();
-    updateTicker(sym, price, chg);
-  };
-
-  ws.onerror = ()=>{
-    const el=document.getElementById('wsStatus');
-    el.className='ws-status ws-dead';
-    el.innerHTML='<div class="ws-dot"></div><span>錯誤</span>';
-  };
-
-  ws.onclose = ()=>{
-    const el=document.getElementById('wsStatus');
-    el.className='ws-status ws-conn';
-    el.innerHTML='<div class="ws-dot blink"></div><span>重連中...</span>';
-    wsReconnectTimer=setTimeout(connectWS,3000);
-  };
-}
-
-// ─────────────────────────────────────────────
-// UPDATE UI FROM WS
-// ─────────────────────────────────────────────
-const SYM_MAP = {
-  'BTCUSDT':{ bar:'sc-btc', bp:'bp',  bc:'bc',  p2:'bp2',  c2:'bc2',  sg:'bsig'  },
-  'ETHUSDT':{ bar:'sc-eth', bp:'ep',  bc:'ec',  p2:'ep2',  c2:'ec2',  sg:'esig'  },
-  'SOLUSDT':{ bar:'sc-sol', bp:'sp',  bc:'sc2x',p2:'sp2',  c2:'sc3',  sg:'ssig'  },
-  'XRPUSDT':{ bar:'sc-xrp', bp:'xp',  bc:'xc',  p2:'xp2',  c2:'xc2',  sg:'xsig'  },
-  'BNBUSDT':{ bar:'sc-bnb', bp:'bnbp',bc:'bnbc',p2:'bnbp2',c2:'bnbc2',sg:'bnbsig'},
+// ── SYMBOL → UI MAP ────────────────────────────
+const MAP={
+  BTCUSDT:{bar:'sc-btc',bp:'bp', bc:'bc', p2:'bp2', c2:'bc2', sg:'bsig'},
+  ETHUSDT:{bar:'sc-eth',bp:'ep', bc:'ec', p2:'ep2', c2:'ec2', sg:'esig'},
+  SOLUSDT:{bar:'sc-sol',bp:'sp', bc:'scx',p2:'sp2', c2:'sc3', sg:'ssig'},
+  XRPUSDT:{bar:'sc-xrp',bp:'xp', bc:'xc', p2:'xp2', c2:'xc2', sg:'xsig'},
+  BNBUSDT:{bar:'sc-bnb',bp:'bnbp',bc:'bnbc',p2:'bnbp2',c2:'bnbc2',sg:'bnbsig'},
 };
 
-function updateSymbolUI(sym, price, chg, prev){
-  const m = SYM_MAP[sym];
-  if(!m) return;
-
-  const pStr = fmt(price);
-  const cStr = fp(chg);
-  const cls  = cc(chg);
-  const isUp = prev===undefined ? chg>=0 : price>=prev;
-
-  // Stats bar
-  set(m.bp, pStr, cls+' sv');
-  set(m.bc, cStr, cls+' sch');
-  const barEl = document.getElementById(m.bar);
-  if(barEl && prev!==undefined) flash(barEl, isUp);
-
-  // Table
-  set(m.p2, pStr, cls);
-  set(m.c2, cStr, cls);
-  const s = sig(chg);
-  const sigEl = document.getElementById(m.sg);
-  if(sigEl){ sigEl.textContent=s.l; sigEl.className=s.c; }
+function updateUI(sym,price,chg,prev){
+  const m=MAP[sym]; if(!m)return;
+  const ps=fmt(price),cs=fp(chg),cl=cc(chg);
+  const isUp=prev===undefined?chg>=0:price>=prev;
+  set(m.bp,ps,cl+' sv'); set(m.bc,cs,cl+' sch');
+  const b=document.getElementById(m.bar); if(b&&prev!==undefined)flash(b,isUp);
+  set(m.p2,ps,cl); set(m.c2,cs,cl);
+  const s=sig(chg),se=document.getElementById(m.sg);
+  if(se){se.textContent=s.l;se.className=s.c;}
 }
 
-// ─────────────────────────────────────────────
-// TICKER TAPE
-// ─────────────────────────────────────────────
-const TICKER_MAP = {
-  'BTCUSDT':'btc','ETHUSDT':'eth','SOLUSDT':'sol','XRPUSDT':'xrp',
-  'BNBUSDT':'bnb','AVAXUSDT':'avax','DOGEUSDT':'doge','LINKUSDT':'link',
-};
-function updateTicker(sym, price, chg){
-  const k = TICKER_MAP[sym];
-  if(!k) return;
-  const str = `${fmt(price)} <span class="${cc(chg)}" style="font-size:10px">${fp(chg)}</span>`;
-  set('tk-'+k, str);
-  set('tk-'+k+'2', str);
-}
-
-// ─────────────────────────────────────────────
-// PORTFOLIO P&L
-// ─────────────────────────────────────────────
 function updatePortfolio(){
-  let tv=0, tc=0;
+  let tv=0,tc=0;
   PORTFOLIO.forEach(p=>{
-    const cur = prices[p.sym]?.price;
-    if(!cur) return;
-    const val=cur*p.qty, cost=p.cost*p.qty, pnl=val-cost;
-    const roi=((cur-p.cost)/p.cost)*100;
-    tv+=val; tc+=cost;
-    set(p.pp,(roi>=0?'+':'')+roi.toFixed(2)+'%', cc(roi));
-    set(p.pa,(pnl>=0?'+':'')+fmt(pnl), cc(pnl));
+    const cur=prices[p.sym]?.price; if(!cur)return;
+    const val=cur*p.qty,cost=p.cost*p.qty,pnl=val-cost,roi=((cur-p.cost)/p.cost)*100;
+    tv+=val;tc+=cost;
+    set(p.pp,(roi>=0?'+':'')+roi.toFixed(2)+'%',cc(roi));
+    set(p.pa,(pnl>=0?'+':'')+fmt(pnl),cc(pnl));
   });
   if(tv>0){
-    const tpnl=tv-tc, troi=((tv-tc)/tc)*100;
-    set('tv',fmt(tv),'plv up');
+    const tpnl=tv-tc,troi=((tv-tc)/tc)*100;
+    set('tv2',fmt(tv),'plv up');
     set('tp',(tpnl>=0?'+':'')+fmt(tpnl),'plv '+cc(tpnl));
     set('tr2',(troi>=0?'+':'')+troi.toFixed(2)+'%','plv '+cc(troi));
   }
 }
 
-// ─────────────────────────────────────────────
-// FEAR & GREED — every 10s
-// ─────────────────────────────────────────────
+// ── BINANCE WEBSOCKET ──────────────────────────
+const WS_SYMS=['btcusdt','ethusdt','solusdt','xrpusdt','bnbusdt'];
+let ws,wsTimer;
+
+function connectWS(){
+  const streams=WS_SYMS.map(s=>s+'@ticker').join('/');
+  ws=new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+  ws.onopen=()=>{
+    const e=document.getElementById('wsStatus');
+    e.className='ws-status ws-live';
+    e.innerHTML='<div class="ws-dot"></div><span>LIVE</span>';
+    clearTimeout(wsTimer);
+  };
+  ws.onmessage=(e)=>{
+    const d=JSON.parse(e.data).data; if(!d)return;
+    const sym=d.s,price=parseFloat(d.c),chg=parseFloat(d.P);
+    const prev=prices[sym]?.price;
+    prices[sym]={price,change24h:chg};
+    updateUI(sym,price,chg,prev);
+    updatePortfolio();
+  };
+  ws.onerror=()=>{
+    const e=document.getElementById('wsStatus');
+    e.className='ws-status ws-dead';
+    e.innerHTML='<div class="ws-dot"></div><span>錯誤</span>';
+  };
+  ws.onclose=()=>{
+    const e=document.getElementById('wsStatus');
+    e.className='ws-status ws-conn';
+    e.innerHTML='<div class="ws-dot"></div><span>重連中...</span>';
+    wsTimer=setTimeout(connectWS,3000);
+  };
+}
+
+// ── FEAR & GREED ───────────────────────────────
 async function fetchFG(){
   try{
     const r=await fetch('https://api.alternative.me/fng/?limit=1');
-    if(!r.ok) throw new Error();
     const d=await r.json();
-    const v=parseInt(d.data[0].value);
-    const lb=d.data[0].value_classification;
+    const v=parseInt(d.data[0].value),lb=d.data[0].value_classification;
     const lm={'Extreme Fear':'極度恐懼','Fear':'恐懼','Neutral':'中性','Greed':'貪婪','Extreme Greed':'極度貪婪'};
     const cm={'Extreme Fear':'var(--red)','Fear':'var(--yellow)','Neutral':'var(--text)','Greed':'var(--green)','Extreme Greed':'var(--green)'};
     document.getElementById('fgv').textContent=v;
@@ -617,66 +693,43 @@ async function fetchFG(){
     let a='';
     if(v<=20)a='極端恐懼。歷史數據顯示此位置通常是絕佳買點，需等待底部確認信號。';
     else if(v<=40)a='恐懼區間，情緒修復中。此過渡期往往是最好的建倉機會。';
-    else if(v<=60)a='中性偏多，市場情緒健康。可正常執行交易計劃，無需過度謹慎。';
+    else if(v<=60)a='中性偏多，市場情緒健康。可正常執行交易計劃。';
     else if(v<=80)a='貪婪區間，注意市場可能過熱。建議逐步減倉或收緊止損。';
     else a='極度貪婪！此區間往往是行情高點，強烈建議分批獲利了結。';
     set('fga',a);
     const t=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
     set('fgBadge',`🔄 恐貪指數：${t}`);
-  }catch(e){ console.warn('FG failed',e); }
+  }catch(e){console.warn('FG failed',e);}
 }
 
-// ─────────────────────────────────────────────
-// SECTOR HEATMAP — every 10s
-// ─────────────────────────────────────────────
+// ── SECTORS (CoinGecko for labels only) ────────
 const SECTORS=[
-  {name:'Layer 1',  ids:'bitcoin,ethereum,solana,avalanche-2'},
-  {name:'DeFi',     ids:'uniswap,aave,curve-dao-token,maker'},
-  {name:'AI Crypto',ids:'fetch-ai,singularitynet,ocean-protocol,near'},
-  {name:'RWA',      ids:'chainlink,ondo-finance,centrifuge,maple'},
-  {name:'Meme',     ids:'dogecoin,shiba-inu,pepe,floki'},
-  {name:'NFT/Game', ids:'axie-infinity,the-sandbox,decentraland,illuvium'},
-  {name:'Layer 2',  ids:'matic-network,arbitrum,optimism,starknet'},
-  {name:'Stables',  ids:'tether,usd-coin,dai,true-usd'},
+  {name:'Layer 1',ids:'bitcoin,ethereum,solana,avalanche-2'},
+  {name:'DeFi',ids:'uniswap,aave,curve-dao-token,maker'},
+  {name:'AI',ids:'fetch-ai,singularitynet,ocean-protocol,near'},
+  {name:'RWA',ids:'chainlink,ondo-finance,centrifuge,maple'},
+  {name:'Meme',ids:'dogecoin,shiba-inu,pepe,floki'},
+  {name:'NFT',ids:'axie-infinity,the-sandbox,decentraland,illuvium'},
+  {name:'Layer 2',ids:'matic-network,arbitrum,optimism,starknet'},
+  {name:'Stables',ids:'tether,usd-coin,dai,true-usd'},
 ];
 
 async function fetchSectors(){
   try{
     const ids=SECTORS.map(s=>s.ids).join(',');
     const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
-    if(!r.ok) throw new Error();
+    if(!r.ok)throw new Error();
     const d=await r.json();
-    const g=document.getElementById('hg');
-    g.innerHTML='';
-    SECTORS.forEach(s=>{
-      const ids2=s.ids.split(',');
-      let t=0,n=0;
-      ids2.forEach(id=>{ if(d[id]?.usd_24h_change!=null){t+=d[id].usd_24h_change;n++;} });
-      const avg=n>0?t/n:0;
-      const div=document.createElement('div');
-      div.className='hc';
-      div.style.background=heatColor(avg);
-      div.innerHTML=`<div class="hn">${s.name}</div><div class="hp ${cc(avg)}">${avg>=0?'+':''}${avg.toFixed(1)}%</div>`;
-      g.appendChild(div);
-    });
     const t=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    set('secBadge',`🔄 板塊：${t}`);
-  }catch(e){ console.warn('Sector failed',e); }
+    set('secBadge',`🔄 板塊(CoinGecko)：${t}`);
+  }catch(e){console.warn('Sector failed',e);}
 }
 
-// ─────────────────────────────────────────────
-// POLLING SCHEDULE
-// ─────────────────────────────────────────────
-async function pollAll(){
-  await Promise.allSettled([fetchFG(), fetchSectors()]);
-}
-
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+// ── INIT ───────────────────────────────────────
 connectWS();
-pollAll();
-setInterval(pollAll, 10000);  // every 10 seconds
+fetchFG();
+fetchSectors();
+setInterval(()=>{ fetchFG(); fetchSectors(); }, 10000);
 </script>
 </body>
 </html>
