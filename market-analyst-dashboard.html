@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>市場分析報告 · 2026-03-17</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #00ff88;
+    --accent2: #ff3366;
+    --accent3: #ffaa00;
+    --accent4: #00aaff;
+    --text: #e8e8f0;
+    --text-muted: #6a6a80;
+    --text-dim: #3a3a50;
+    --red: #ff3366;
+    --green: #00ff88;
+    --yellow: #ffaa00;
+    --blue: #00aaff;
+    --purple: #aa44ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(0,255,136,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 80%, rgba(0,170,255,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 60% 30%, rgba(255,51,102,0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .header-status {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .live-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .live-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .date-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .report-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .report-label::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* QUICK STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 40px 0;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 20px;
+    transition: background 0.2s;
+  }
+
+  .stat-cell:hover { background: var(--surface2); }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-change {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .neutral { color: var(--yellow); }
+
+  /* SECTION */
+  .section {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--text);
+  }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    margin-left: auto;
+  }
+
+  /* MARKET OVERVIEW GRID */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+
+  .card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* PRICE TABLE */
+  .price-table { width: 100%; border-collapse: collapse; }
+
+  .price-table tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .price-table tr:last-child { border-bottom: none; }
+  .price-table tr:hover { background: var(--surface2); }
+
+  .price-table td {
+    padding: 14px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+  }
+
+  .coin-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .coin-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .coin-ticker {
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  .signal-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid;
+    letter-spacing: 0.08em;
+  }
+
+  .signal-buy { color: var(--green); border-color: var(--green); }
+  .signal-sell { color: var(--red); border-color: var(--red); }
+  .signal-hold { color: var(--yellow); border-color: var(--yellow); }
+  .signal-watch { color: var(--blue); border-color: var(--blue); }
+
+  /* FEAR GREED METER */
+  .meter-wrap {
+    position: relative;
+  }
+
+  .meter-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .meter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .meter-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red) 0%, var(--yellow) 50%, var(--green) 100%);
+    width: 100%;
+  }
+
+  .meter-cursor {
+    position: absolute;
+    top: -3px;
+    width: 2px;
+    height: 12px;
+    background: var(--text);
+    left: 32%;
+    transition: left 1s ease;
+  }
+
+  .meter-scale {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+
+  .meter-history {
+    margin-top: 20px;
+    display: flex;
+    gap: 4px;
+  }
+
+  .hist-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hist-fill {
+    width: 100%;
+    background: var(--border);
+    position: relative;
+    height: 40px;
+    overflow: hidden;
+  }
+
+  .hist-inner {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+  }
+
+  .hist-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--text-dim);
+  }
+
+  /* TECHNICAL SIGNALS */
+  .signals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .signal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .signal-card.bull::before { background: var(--green); }
+  .signal-card.bear::before { background: var(--red); }
+  .signal-card.neutral::before { background: var(--yellow); }
+
+  .signal-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .signal-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .signal-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* MINI CHART */
+  .mini-chart {
+    height: 40px;
+    position: relative;
+    margin-top: 12px;
+  }
+
+  .mini-chart svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* SECTOR HEATMAP */
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .heat-cell {
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .heat-cell:hover { opacity: 0.85; }
+
+  .heat-name {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .heat-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NEWS */
+  .news-list { display: flex; flex-direction: column; gap: 0; }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .news-item:last-child { border-bottom: none; }
+  .news-item:hover { padding-left: 8px; }
+
+  .news-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    padding-top: 3px;
+  }
+
+  .news-title {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .news-impact {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 3px 8px;
+    border: 1px solid;
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+  }
+
+  .impact-high { color: var(--red); border-color: var(--red); }
+  .impact-med { color: var(--yellow); border-color: var(--yellow); }
+  .impact-low { color: var(--text-muted); border-color: var(--border); }
+
+  /* REDDIT SENTIMENT */
+  .reddit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .sentiment-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .sentiment-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .sentiment-bar-wrap {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .sentiment-bar-fill {
+    height: 100%;
+    transition: width 1s ease;
+  }
+
+  .sentiment-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    width: 40px;
+    text-align: right;
+  }
+
+  /* PORTFOLIO P&L */
+  .pnl-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .pnl-cell {
+    background: var(--surface);
+    padding: 20px;
+  }
+
+  .pnl-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .pnl-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  /* TOMORROW PREVIEW */
+  .preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .preview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .preview-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .event-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .event-row:last-child { border-bottom: none; }
+
+  .event-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    width: 50px;
+  }
+
+  .event-name {
+    flex: 1;
+    font-size: 13px;
+  }
+
+  .event-impact {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ei-high { background: var(--red); }
+  .ei-med { background: var(--yellow); }
+  .ei-low { background: var(--text-muted); }
+
+  /* POLYMARKET */
+  .poly-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .poly-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .poly-question {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .poly-odds {
+    display: flex;
+    gap: 2px;
+    height: 8px;
+    margin-bottom: 10px;
+  }
+
+  .poly-yes {
+    height: 100%;
+    background: var(--green);
+    transition: width 1s ease;
+  }
+
+  .poly-no {
+    height: 100%;
+    background: var(--red);
+    flex: 1;
+  }
+
+  .poly-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+  }
+
+  /* CONCLUSION BOX */
+  .conclusion {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    padding: 32px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .conclusion::before {
+    content: 'ANALYST VIEW';
+    position: absolute;
+    top: -1px; left: 24px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 4px 10px;
+    font-weight: 700;
+  }
+
+  .conclusion p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .conclusion p:last-child { margin-bottom: 0; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* SPARKLINE ANIMATION */
+  @keyframes drawLine {
+    from { stroke-dashoffset: 500; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  .spark-line {
+    stroke-dasharray: 500;
+    animation: drawLine 1.5s ease both;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stats-bar { grid-template-columns: repeat(3, 1fr); }
+    .overview-grid { grid-template-columns: 1fr; }
+    .signals-grid { grid-template-columns: 1fr 1fr; }
+    .heatmap-grid { grid-template-columns: repeat(2, 1fr); }
+    .reddit-grid { grid-template-columns: 1fr; }
+    .pnl-summary { grid-template-columns: 1fr 1fr; }
+    .preview-grid { grid-template-columns: 1fr; }
+    .poly-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">MARKET·ANALYST // v1.0</div>
+    <div class="header-status">
+      <div class="live-dot"></div>
+      <div class="live-text">LIVE DATA</div>
+      <div class="date-tag">2026-03-17 · 盤前報告 ET 08:00</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="report-label">盤前日報 · PRE-MARKET REPORT</div>
+    <h1>加密貨幣 &<br><em>宏觀市場</em> 分析</h1>
+    <p class="hero-sub">整合鏈上數據、技術指標、情緒分析與宏觀經濟事件。本報告覆蓋 BTC、ETH、SOL 及主要加密板塊，提供具體交易信號與風險評估。</p>
+  </div>
+
+  <!-- QUICK STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <div class="stat-label">BTC / USD</div>
+      <div class="stat-value up">$74,320</div>
+      <div class="stat-change up">▲ +0.06%</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">ETH / USD</div>
+      <div class="stat-value down">$2,314</div>
+      <div class="stat-change down">▼ -1.45%</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">SOL / USD</div>
+      <div class="stat-value down">$93.85</div>
+      <div class="stat-change down">▼ -1.90%</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">總市值</div>
+      <div class="stat-value neutral">$2.45T</div>
+      <div class="stat-change up">▲ +1.54%</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">VIX</div>
+      <div class="stat-value neutral">23.28</div>
+      <div class="stat-change up">▲ 恐慌降低</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: MARKET OVERVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>市場總覽</h2>
+      <div class="section-tag">MARKET OVERVIEW</div>
+    </div>
+
+    <div class="overview-grid">
+      <!-- PRICE TABLE -->
+      <div class="card">
+        <div class="card-label">主要資產報價 · 技術信號</div>
+        <table class="price-table">
+          <tr>
+            <td>
+              <div class="coin-name">
+                <div class="coin-dot" style="background:#f7931a"></div>
+                <div>
+                  <div>Bitcoin</div>
+                  <div class="coin-ticker">BTC</div>
+                </div>
+              </div>
+            </td>
+            <td class="up" style="text-align:right;font-family:'Space Mono',monospace">$74,320</td>
+            <td class="up" style="text-align:right;font-family:'Space Mono',monospace;font-size:11px">+0.06%</td>
+            <td style="text-align:right"><span class="signal-badge signal-buy">買入</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="coin-name">
+                <div class="coin-dot" style="background:#627eea"></div>
+                <div>
+                  <div>Ethereum</div>
+                  <div class="coin-ticker">ETH</div>
+                </div>
+              </div>
+            </td>
+            <td class="down" style="text-align:right;font-family:'Space Mono',monospace">$2,314</td>
+            <td class="down" style="text-align:right;font-family:'Space Mono',monospace;font-size:11px">-1.45%</td>
+            <td style="text-align:right"><span class="signal-badge signal-watch">觀望</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="coin-name">
+                <div class="coin-dot" style="background:#9945ff"></div>
+                <div>
+                  <div>Solana</div>
+                  <div class="coin-ticker">SOL</div>
+                </div>
+              </div>
+            </td>
+            <td class="down" style="text-align:right;font-family:'Space Mono',monospace">$93.85</td>
+            <td class="down" style="text-align:right;font-family:'Space Mono',monospace;font-size:11px">-1.90%</td>
+            <td style="text-align:right"><span class="signal-badge signal-hold">持有</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="coin-name">
+                <div class="coin-dot" style="background:#00aae4"></div>
+                <div>
+                  <div>XRP</div>
+                  <div class="coin-ticker">XRP</div>
+                </div>
+              </div>
+            </td>
+            <td class="down" style="text-align:right;font-family:'Space Mono',monospace">$1.52</td>
+            <td class="down" style="text-align:right;font-family:'Space Mono',monospace;font-size:11px">-3.16%</td>
+            <td style="text-align:right"><span class="signal-badge signal-hold">持有</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="coin-name">
+                <div class="coin-dot" style="background:#ffaa00"></div>
+                <div>
+                  <div>BTC 主導率</div>
+                  <div class="coin-ticker">DOMINANCE</div>
+                </div>
+              </div>
+            </td>
+            <td class="up" style="text-align:right;font-family:'Space Mono',monospace">58.78%</td>
+            <td class="up" style="text-align:right;font-family:'Space Mono',monospace;font-size:11px">+0.07%</td>
+            <td style="text-align:right"><span class="signal-badge signal-buy">強勢</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- FEAR GREED -->
+      <div class="card">
+        <div class="card-label">恐貪指數 · FEAR & GREED</div>
+        <div class="meter-wrap">
+          <div class="meter-value">32</div>
+          <div class="meter-label">FEAR 恐懼區間</div>
+          <div class="meter-bar">
+            <div class="meter-fill"></div>
+            <div class="meter-cursor" style="left:32%"></div>
+          </div>
+          <div class="meter-scale">
+            <span>0 極度恐懼</span>
+            <span>50</span>
+            <span>100 極度貪婪</span>
+          </div>
+
+          <div class="meter-history">
+            <div class="hist-bar">
+              <div class="hist-fill"><div class="hist-inner" style="height:10%;background:var(--red)"></div></div>
+              <div class="hist-label">3/8</div>
+              <div class="hist-label" style="color:var(--red)">12</div>
+            </div>
+            <div class="hist-bar">
+              <div class="hist-fill"><div class="hist-inner" style="height:15%;background:var(--red)"></div></div>
+              <div class="hist-label">3/10</div>
+              <div class="hist-label" style="color:var(--red)">15</div>
+            </div>
+            <div class="hist-bar">
+              <div class="hist-fill"><div class="hist-inner" style="height:20%;background:var(--red)"></div></div>
+              <div class="hist-label">3/12</div>
+              <div class="hist-label" style="color:var(--red)">20</div>
+            </div>
+            <div class="hist-bar">
+              <div class="hist-fill"><div class="hist-inner" style="height:26%;background:var(--yellow)"></div></div>
+              <div class="hist-label">3/15</div>
+              <div class="hist-label" style="color:var(--yellow)">26</div>
+            </div>
+            <div class="hist-bar">
+              <div class="hist-fill"><div class="hist-inner" style="height:32%;background:var(--yellow)"></div></div>
+              <div class="hist-label">今日</div>
+              <div class="hist-label" style="color:var(--yellow)">32</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding:12px;background:var(--surface2);border-left:2px solid var(--yellow)">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--text-muted);margin-bottom:4px">分析師解讀</div>
+            <div style="font-size:12px;line-height:1.5;color:var(--text)">從極端恐懼（12）快速回升至恐懼區間（32），顯示市場情緒正在修復。歷史數據顯示此拐點通常預示短期反彈。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: BREAKING NEWS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>突發新聞</h2>
+      <div class="section-tag">BREAKING NEWS</div>
+    </div>
+
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-time">06:30<br>EDT</div>
+        <div class="news-title">BTC 昨日急漲 $1,800 至 $74,300，創 40 天新高。此波拉升在 30 分鐘內觸發逾 1.13 億美元空頭爆倉，顯示多頭力道強勁。加密老將 Erik Voorhees 同步大舉買入 2.3 萬枚 ETH（約 4,900 萬美元）。</div>
+        <div class="news-impact impact-high">高影響</div>
+      </div>
+      <div class="news-item">
+        <div class="news-time">05:12<br>EDT</div>
+        <div class="news-title">以太坊 ETF 本週出現大額淨流入，Bitmine 持倉達 460 萬 ETH，同時維持 12 億美元現金部位持續增持。機構買盤明顯轉向 ETH。</div>
+        <div class="news-impact impact-high">高影響</div>
+      </div>
+      <div class="news-item">
+        <div class="news-time">04:45<br>EDT</div>
+        <div class="news-title">Metaplanet 完成 2.55 億美元融資，加速比特幣儲備計劃。美日兩地比特幣財庫策略持續擴張，BTC 機構吸籌邏輯強化。</div>
+        <div class="news-impact impact-med">中影響</div>
+      </div>
+      <div class="news-item">
+        <div class="news-time">03:20<br>EDT</div>
+        <div class="news-title">T. Rowe Price 申請含 DOGE、SHIB 的加密 ETF，美 SEC 監管框架持續擴大納入資產種類。監管明朗化利好整體市場。</div>
+        <div class="news-impact impact-med">中影響</div>
+      </div>
+      <div class="news-item">
+        <div class="news-time">02:00<br>EDT</div>
+        <div class="news-title">OpenSea 宣布延遲代幣發行，將推出 60 天零手續費交易活動。NFT 板塊情緒偏空，但對主流幣影響有限。</div>
+        <div class="news-impact impact-low">低影響</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: TECHNICAL SIGNALS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>技術信號</h2>
+      <div class="section-tag">TECHNICAL ANALYSIS</div>
+    </div>
+
+    <div class="signals-grid">
+      <div class="signal-card bull">
+        <div class="signal-title">RSI (14日) · BTC</div>
+        <div class="signal-val up">58.4</div>
+        <div class="signal-desc">剛從超賣（29）強力反彈，突破 50 均值關卡。動能向上，未達超買。</div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <polyline class="spark-line" points="0,36 15,38 30,35 45,32 55,28 65,22 80,18 90,14 100,10"
+              fill="none" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="500" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="signal-card bull">
+        <div class="signal-title">MACD · BTC 日線</div>
+        <div class="signal-val up">金叉</div>
+        <div class="signal-desc">MACD 線穿越信號線向上，柱狀圖由負轉正。日線級別看漲信號確立。</div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <line x1="50" y1="0" x2="50" y2="40" stroke="var(--border)" stroke-width="0.5"/>
+            <polyline class="spark-line" points="0,30 20,28 35,25 50,20 65,16 80,12 100,8"
+              fill="none" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="500" stroke-dashoffset="0"/>
+            <polyline points="0,32 20,30 35,28 50,23 65,20 80,17 100,15"
+              fill="none" stroke="var(--red)" stroke-width="1" stroke-dasharray="3,3"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="signal-card neutral">
+        <div class="signal-title">SMA 200 · BTC</div>
+        <div class="signal-val neutral">$71,200</div>
+        <div class="signal-desc">BTC 目前站於 200 日均線之上（+4.4%），測試後守住支撐，轉折確認中。</div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <line x1="0" y1="22" x2="100" y2="22" stroke="var(--yellow)" stroke-width="0.8" stroke-dasharray="4,3"/>
+            <polyline class="spark-line" points="0,35 20,30 35,28 45,24 55,22 65,18 80,14 100,10"
+              fill="none" stroke="var(--text)" stroke-width="1.5" stroke-dasharray="500" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="signal-card bull">
+        <div class="signal-title">布林帶 · ETH</div>
+        <div class="signal-val up">突破中軌</div>
+        <div class="signal-desc">ETH 收復布林帶中軌（$2,280），若持穩可望測試上軌（$2,680）。</div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <polyline points="0,5 100,5" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+            <polyline points="0,35 100,35" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+            <polyline points="0,20 100,20" fill="none" stroke="var(--yellow)" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <polyline class="spark-line" points="0,38 20,33 40,28 55,22 70,18 85,16 100,15"
+              fill="none" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="500" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="signal-card bear">
+        <div class="signal-title">資金費率 · BTC 永續</div>
+        <div class="signal-val neutral">+0.01%</div>
+        <div class="signal-desc">由負轉微正，顯示多頭開始主導，但不過熱。槓桿未過高，擠倉風險低。</div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <line x1="0" y1="20" x2="100" y2="20" stroke="var(--border)" stroke-width="0.5"/>
+            <polyline class="spark-line" points="0,10 15,12 25,15 35,18 50,22 65,21 80,20 100,19"
+              fill="none" stroke="var(--yellow)" stroke-width="1.5" stroke-dasharray="500" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="signal-card bull">
+        <div class="signal-title">BTC 鯨魚累積</div>
+        <div class="signal-val up">+270K BTC</div>
+        <div class="signal-desc">過去 30 天鯨魚地址淨買入 27 萬 BTC（約 187 億美元）。強烈底部吸籌信號。</div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <polyline class="spark-line" points="0,38 15,35 30,30 45,24 60,18 75,12 90,8 100,6"
+              fill="none" stroke="#00ff88" stroke-width="1.5" stroke-dasharray="500" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: SECTOR HEATMAP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>板塊熱力圖</h2>
+      <div class="section-tag">SECTOR HEATMAP · 24H</div>
+    </div>
+
+    <div class="heatmap-grid">
+      <div class="heat-cell" style="background:rgba(0,255,136,0.2)">
+        <div class="heat-name">Layer 1</div>
+        <div class="heat-pct up">+2.3%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(0,255,136,0.12)">
+        <div class="heat-name">DeFi</div>
+        <div class="heat-pct up">+1.8%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(255,51,102,0.15)">
+        <div class="heat-name">NFT</div>
+        <div class="heat-pct down">-2.1%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(0,255,136,0.08)">
+        <div class="heat-name">AI Crypto</div>
+        <div class="heat-pct up">+0.9%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(255,51,102,0.25)">
+        <div class="heat-name">Meme Coins</div>
+        <div class="heat-pct down">-3.8%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(0,255,136,0.18)">
+        <div class="heat-name">RWA</div>
+        <div class="heat-pct up">+2.0%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(255,51,102,0.1)">
+        <div class="heat-name">Gaming</div>
+        <div class="heat-pct down">-1.2%</div>
+      </div>
+      <div class="heat-cell" style="background:rgba(255,170,0,0.12)">
+        <div class="heat-name">Stablecoins</div>
+        <div class="heat-pct neutral">+0.01%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: POLYMARKET -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>Polymarket 預測市場</h2>
+      <div class="section-tag">PREDICTION MARKET ODDS</div>
+    </div>
+
+    <div class="poly-grid">
+      <div class="poly-card">
+        <div class="poly-question">Fed 3 月 FOMC 會議是否降息？</div>
+        <div class="poly-odds">
+          <div class="poly-yes" style="width:8%"></div>
+          <div class="poly-no"></div>
+        </div>
+        <div class="poly-labels">
+          <span class="up">是 8%</span>
+          <span class="down">否 92%</span>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-muted);line-height:1.5">市場定價 3 月按兵不動機率極高。首次降息預期落在 6 月，需觀察 CPI 數據配合。</div>
+      </div>
+
+      <div class="poly-card">
+        <div class="poly-question">BTC 本季（Q1 2026）收盤於 $80,000 以上？</div>
+        <div class="poly-odds">
+          <div class="poly-yes" style="width:38%"></div>
+          <div class="poly-no"></div>
+        </div>
+        <div class="poly-labels">
+          <span class="up">是 38%</span>
+          <span class="down">否 62%</span>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-muted);line-height:1.5">距季末僅 2 周，需突破 $80K 阻力。若無強力催化劑，機率偏低，但方向看好。</div>
+      </div>
+
+      <div class="poly-card">
+        <div class="poly-question">美國加密 Clarity Act 是否於 2026 年通過？</div>
+        <div class="poly-odds">
+          <div class="poly-yes" style="width:62%"></div>
+          <div class="poly-no"></div>
+        </div>
+        <div class="poly-labels">
+          <span class="up">是 62%</span>
+          <span class="down">否 38%</span>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-muted);line-height:1.5">Clarity Act 通過機率過半，一旦立法明朗化將釋放大量機構資金，長期看漲。</div>
+      </div>
+
+      <div class="poly-card">
+        <div class="poly-question">ETH 將在 Q2 超越 $3,500？</div>
+        <div class="poly-odds">
+          <div class="poly-yes" style="width:44%"></div>
+          <div class="poly-no"></div>
+        </div>
+        <div class="poly-labels">
+          <span class="up">是 44%</span>
+          <span class="down">否 56%</span>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-muted);line-height:1.5">機構 ETF 買盤持續、供應緊縮，若 BTC 先突破則 ETH 輪動機率大增。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: REDDIT SENTIMENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2>Reddit 社群情緒</h2>
+      <div class="section-tag">r/bitcoin · r/wsb · r/investing</div>
+    </div>
+
+    <div class="reddit-grid">
+      <div class="card">
+        <div class="card-label">r/Bitcoin 情緒分佈</div>
+        <div class="sentiment-row">
+          <div class="sentiment-label">極度看多</div>
+          <div class="sentiment-bar-wrap">
+            <div class="sentiment-bar-fill" style="width:35%;background:var(--green)"></div>
+          </div>
+          <div class="sentiment-pct up">35%</div>
+        </div>
+        <div class="sentiment-row">
+          <div class="sentiment-label">偏多</div>
+          <div class="sentiment-bar-wrap">
+            <div class="sentiment-bar-fill" style="width:28%;background:rgba(0,255,136,0.5)"></div>
+          </div>
+          <div class="sentiment-pct up">28%</div>
+        </div>
+        <div class="sentiment-row">
+          <div class="sentiment-label">中性</div>
+          <div class="sentiment-bar-wrap">
+            <div class="sentiment-bar-fill" style="width:20%;background:var(--text-muted)"></div>
+          </div>
+          <div class="sentiment-pct neutral">20%</div>
+        </div>
+        <div class="sentiment-row">
+          <div class="sentiment-label">偏空</div>
+          <div class="sentiment-bar-wrap">
+            <div class="sentiment-bar-fill" style="width:12%;background:rgba(255,51,102,0.5)"></div>
+          </div>
+          <div class="sentiment-pct down">12%</div>
+        </div>
+        <div class="sentiment-row">
+          <div class="sentiment-label">極度看空</div>
+          <div class="sentiment-bar-wrap">
+            <div class="sentiment-bar-fill" style="width:5%;background:var(--red)"></div>
+          </div>
+          <div class="sentiment-pct down">5%</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">熱門討論主題</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--border)">
+            <div style="font-size:13px">BTC 空頭爆倉 $113M 討論</div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 4.2k upvotes</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--border)">
+            <div style="font-size:13px">Voorhees 買入 2.3 萬 ETH</div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 3.1k upvotes</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--border)">
+            <div style="font-size:13px">T. Rowe Price DOGE ETF 申請</div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--yellow)">⚡ 1.8k upvotes</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:13px">Fed 降息時程辯論</div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-muted)">💬 1.2k upvotes</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px;background:var(--surface2);border-left:2px solid var(--green)">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--text-muted);margin-bottom:4px">社群情緒結論</div>
+          <div style="font-size:12px;line-height:1.5;color:var(--text)">散戶情緒顯著回暖，但仍未達到過熱的「FOMO」階段，目前屬健康的樂觀情緒。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: PORTFOLIO P&L (DEMO) -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <h2>模擬持倉損益</h2>
+      <div class="section-tag">PORTFOLIO P&L · DEMO</div>
+    </div>
+
+    <div class="pnl-summary">
+      <div class="pnl-cell">
+        <div class="pnl-label">總資產估值</div>
+        <div class="pnl-value up">$124,580</div>
+      </div>
+      <div class="pnl-cell">
+        <div class="pnl-label">本週損益</div>
+        <div class="pnl-value up">+$8,240</div>
+      </div>
+      <div class="pnl-cell">
+        <div class="pnl-label">持倉報酬率</div>
+        <div class="pnl-value up">+7.08%</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">持倉明細 · 示範組合</div>
+      <table class="price-table">
+        <tr>
+          <td><div class="coin-name"><div class="coin-dot" style="background:#f7931a"></div>BTC</div></td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px;color:var(--text-muted)">0.8 BTC</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px">成本 $68,000</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px" class="up">+9.3%</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px" class="up">+$4,856</td>
+        </tr>
+        <tr>
+          <td><div class="coin-name"><div class="coin-dot" style="background:#627eea"></div>ETH</div></td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px;color:var(--text-muted)">12 ETH</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px">成本 $2,450</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px" class="down">-5.6%</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px" class="down">-$1,632</td>
+        </tr>
+        <tr>
+          <td><div class="coin-name"><div class="coin-dot" style="background:#9945ff"></div>SOL</div></td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px;color:var(--text-muted)">50 SOL</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px">成本 $88.00</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px" class="up">+6.6%</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px" class="up">+$292</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8: TOMORROW PREVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <h2>明日展望</h2>
+      <div class="section-tag">TOMORROW PREVIEW</div>
+    </div>
+
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-title">🗓 重要經濟事件 · 03/18</div>
+        <div class="event-row">
+          <div class="event-time">08:30</div>
+          <div class="event-name">美國 2 月零售銷售數據</div>
+          <div class="event-impact ei-high"></div>
+        </div>
+        <div class="event-row">
+          <div class="event-time">14:00</div>
+          <div class="event-name">FOMC 利率決議（持平預期）</div>
+          <div class="event-impact ei-high"></div>
+        </div>
+        <div class="event-row">
+          <div class="event-time">14:30</div>
+          <div class="event-name">鮑威爾新聞發布會</div>
+          <div class="event-impact ei-high"></div>
+        </div>
+        <div class="event-row">
+          <div class="event-time">16:00</div>
+          <div class="event-name">BTC ETF 當日流量數據</div>
+          <div class="event-impact ei-med"></div>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <div class="preview-title">🎯 關鍵價格水位</div>
+        <div class="event-row">
+          <div class="event-time" style="color:var(--green)">BTC</div>
+          <div class="event-name">阻力：$76,500 / $80,000</div>
+          <div class="event-impact ei-high"></div>
+        </div>
+        <div class="event-row">
+          <div class="event-time" style="color:var(--red)">BTC</div>
+          <div class="event-name">支撐：$71,200（200日均）/ $68,000</div>
+          <div class="event-impact ei-med"></div>
+        </div>
+        <div class="event-row">
+          <div class="event-time" style="color:var(--green)">ETH</div>
+          <div class="event-name">阻力：$2,450 / $2,680（布林上軌）</div>
+          <div class="event-impact ei-med"></div>
+        </div>
+        <div class="event-row">
+          <div class="event-time" style="color:var(--red)">ETH</div>
+          <div class="event-name">支撐：$2,100 / $1,980</div>
+          <div class="event-impact ei-low"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYST CONCLUSION -->
+  <div class="conclusion">
+    <p>📊 <strong>宏觀背景：</strong>Fed 3 月按兵不動機率達 92%，市場已充分消化。貿易關稅不確定性仍是主要系統性風險，加密與納指相關性維持在 0.7 以上，需密切關注鮑威爾明日言論是否釋放鴿派信號。</p>
+    <p>₿ <strong>BTC 操作策略：</strong>昨日突破 40 日高點 $74,300，技術面 MACD 金叉 + RSI 健康（58）+ 鯨魚持續累積，結構偏多。短線可追，但需注意 $76,500 阻力附近可能出現獲利回吐。強支撐位 $71,200（200 均線）為加倉參考點。</p>
+    <p>Ξ <strong>ETH 操作策略：</strong>ETF 機構買盤轉強（Bitmine 460 萬 ETH）+ Voorhees 現貨大買，基本面轉佳。技術上收復布林中軌，若能站穩 $2,300 並突破 $2,450 則可積極布局。中期目標看 $3,000-$3,500。</p>
+    <p>⚠️ <strong>風險提示：</strong>FOMC 結果與鮑威爾措辭為明日最大變數。若鷹派言論超預期，短期可能引發 5-10% 回調。建議保留 20-30% 現金倉位應對波動，並嚴設止損。</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span>market-analyst · architecture v1.0 · 2026-03-17</span>
+      <span>繁體中文版 · Taiwan + HK</span>
+    </div>
+    <div class="disclaimer">
+      ⚠️ 本報告僅供教育與資訊參考用途，不構成任何投資建議或交易推薦。加密貨幣市場波動極大，投資存在虧損本金之風險。請自行評估風險承受能力，並在做出投資決策前諮詢持牌金融顧問。
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
