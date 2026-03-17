@@ -2,140 +2,174 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>市場分析報告 · LIVE</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0f;--surface:#111118;--surface2:#1a1a24;--border:#2a2a3a;--accent:#00ff88;--text:#e8e8f0;--muted:#6a6a80;--dim:#3a3a50;--red:#ff3366;--green:#00ff88;--yellow:#ffaa00;--blue:#00aaff}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh}
+:root{
+  --bg:#0a0a0f;--surface:#111118;--surface2:#1a1a24;--border:#2a2a3a;
+  --accent:#00ff88;--text:#e8e8f0;--muted:#6a6a80;--dim:#3a3a50;
+  --red:#ff3366;--green:#00ff88;--yellow:#ffaa00;--blue:#00aaff;
+  --tv:#2962ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(0,255,136,.04) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(0,170,255,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
 
-header{border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;background:rgba(10,10,15,.97);backdrop-filter:blur(20px);z-index:100}
-.hi{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px}
-.logo{font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.1em}
-.hr{display:flex;align-items:center;gap:14px}
-.dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+/* ── HEADER ── */
+header{border-bottom:1px solid var(--border);padding:12px 0;position:sticky;top:0;background:rgba(10,10,15,.97);backdrop-filter:blur(20px);z-index:200}
+.hi{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 16px}
+.logo{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.08em}
+.hr{display:flex;align-items:center;gap:10px}
+.dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-.live-badge{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;padding:3px 10px;border:1px solid var(--green);color:var(--green)}
+.live-badge{display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:10px;padding:3px 8px;border:1px solid var(--green);color:var(--green);white-space:nowrap}
 .mono{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim)}
 
-/* TradingView ticker strip */
+/* ── MOBILE NAV ── */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(10,10,15,.98);border-top:1px solid var(--border);padding:8px 0 env(safe-area-inset-bottom)}
+.mob-nav-inner{display:flex;justify-content:space-around}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);background:none;border:none;cursor:pointer;transition:color .2s;letter-spacing:.05em}
+.nav-btn.active{color:var(--accent)}
+.nav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5}
+
+/* ── TICKER ── */
 .tv-strip{border-bottom:1px solid var(--border);overflow:hidden}
 
-.c{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+/* ── CONTAINER ── */
+.c{max-width:1200px;margin:0 auto;padding:0 16px;position:relative;z-index:1}
 
-.hero{padding:40px 0 28px;border-bottom:1px solid var(--border)}
-.rlabel{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:12px}
-.rlabel::before{content:'';display:block;width:30px;height:1px;background:var(--accent)}
-h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,5vw,50px);line-height:1.05;margin-bottom:12px}
+/* ── HERO ── */
+.hero{padding:28px 0 20px;border-bottom:1px solid var(--border)}
+.rlabel{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.rlabel::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,7vw,50px);line-height:1.05;margin-bottom:10px}
 h1 em{color:var(--accent);font-style:italic}
-.sub{font-size:13px;color:var(--muted);max-width:640px;line-height:1.6;font-weight:300}
+.sub{font-size:13px;color:var(--muted);line-height:1.6;font-weight:300}
 
-.badges{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
-.badge-item{font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid}
-.b-tv{color:#2962ff;border-color:rgba(41,98,255,.5)}
-.b-live{color:var(--green);border-color:rgba(0,255,136,.4)}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.badge-item{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid}
+.b-tv{color:var(--tv);border-color:rgba(41,98,255,.4)}
 .b-10s{color:var(--yellow);border-color:rgba(255,170,0,.4)}
 
-.sec{padding:32px 0;border-bottom:1px solid var(--border)}
-.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.sn{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em}
-h2{font-family:'DM Serif Display',serif;font-size:23px}
-.st{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);padding:3px 8px;margin-left:auto}
-.st.tv{color:#2962ff;border-color:rgba(41,98,255,.5)}
+/* ── SECTIONS ── */
+.sec{padding:24px 0;border-bottom:1px solid var(--border)}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.sn{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;flex-shrink:0}
+h2{font-family:'DM Serif Display',serif;font-size:clamp(18px,4vw,23px)}
+.st{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);border:1px solid var(--border);padding:2px 7px;margin-left:auto;white-space:nowrap}
+.st.tv{color:var(--tv);border-color:rgba(41,98,255,.4)}
 .st.live{color:var(--green);border-color:var(--green)}
 
-/* TV widget wrapper */
+/* ── TV BOX ── */
 .tv-box{border:1px solid var(--border);overflow:hidden;background:#131722}
-.tv-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding:8px 12px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.tv-title::before{content:'';width:6px;height:6px;background:#2962ff;border-radius:50%;display:block}
+.tv-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding:7px 11px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px}
+.tv-title::before{content:'';width:5px;height:5px;background:var(--tv);border-radius:50%;display:block;flex-shrink:0}
 
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+/* ── CHART TABS ── */
+.chart-tabs{display:flex;gap:0;border:1px solid var(--border);margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart-tab{font-family:'Space Mono',monospace;font-size:11px;padding:10px 16px;border:none;background:var(--surface);color:var(--muted);cursor:pointer;white-space:nowrap;border-right:1px solid var(--border);transition:all .2s;flex-shrink:0}
+.chart-tab:last-child{border-right:none}
+.chart-tab.active{background:var(--surface2);color:var(--accent);border-bottom:2px solid var(--accent)}
+.chart-panel{display:none}
+.chart-panel.active{display:block}
 
-/* Fear Greed */
-.fg-wrap{background:var(--surface);border:1px solid var(--border);padding:18px}
-.fg-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.mv{font-family:'DM Serif Display',serif;font-size:56px;line-height:1;margin-bottom:3px;transition:color .5s}
-.ml{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;margin-bottom:12px}
-.mb{height:6px;background:var(--border);position:relative;overflow:hidden;margin-bottom:5px}
+/* ── INDICATOR TOGGLES ── */
+.indicator-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.ind-toggle{font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .2s;border-radius:0}
+.ind-toggle.on{background:var(--surface2);color:var(--accent);border-color:var(--accent)}
+
+/* ── FEAR GREED ── */
+.fg-wrap{background:var(--surface);border:1px solid var(--border);padding:16px;margin-top:14px}
+.fg-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.mv{font-family:'DM Serif Display',serif;font-size:52px;line-height:1;margin-bottom:3px;transition:color .5s}
+.ml{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;margin-bottom:10px}
+.mb{height:6px;background:var(--border);position:relative;overflow:hidden;margin-bottom:4px}
 .mf{height:100%;background:linear-gradient(90deg,var(--red) 0%,var(--yellow) 50%,var(--green) 100%)}
 .mc{position:absolute;top:-3px;width:2px;height:12px;background:var(--text);transition:left 1s ease}
 .ms{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--dim)}
 
-/* News */
-.ni{display:grid;grid-template-columns:52px 1fr auto;gap:13px;align-items:start;padding:14px 0;border-bottom:1px solid var(--border);transition:padding .15s}
+/* ── NEWS ── */
+.ni{display:grid;grid-template-columns:48px 1fr auto;gap:11px;align-items:start;padding:13px 0;border-bottom:1px solid var(--border);transition:padding .15s}
 .ni:last-child{border-bottom:none}
-.ni:hover{padding-left:6px}
-.nt{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding-top:2px}
+.nt{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);padding-top:2px;line-height:1.4}
 .ntx{font-size:13px;line-height:1.5}
-.nim{font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border:1px solid;white-space:nowrap}
+.nim{font-family:'Space Mono',monospace;font-size:9px;padding:2px 6px;border:1px solid;white-space:nowrap}
 .ih{color:var(--red);border-color:var(--red)}
 .im{color:var(--yellow);border-color:var(--yellow)}
 .il{color:var(--muted);border-color:var(--border)}
 
-/* Polymarket */
-.pg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.pc{background:var(--surface);border:1px solid var(--border);padding:15px}
-.pq{font-size:13px;line-height:1.5;margin-bottom:11px}
-.po{display:flex;gap:2px;height:8px;margin-bottom:6px}
+/* ── POLYMARKET ── */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.pc{background:var(--surface);border:1px solid var(--border);padding:13px}
+.pq{font-size:12px;line-height:1.5;margin-bottom:10px}
+.po{display:flex;gap:2px;height:7px;margin-bottom:5px}
 .py{height:100%;background:var(--green)}
 .pn{height:100%;background:var(--red);flex:1}
-.pl{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:11px}
-.pnote{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5}
+.pl{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px}
+.pnote{margin-top:7px;font-size:11px;color:var(--muted);line-height:1.5}
 .up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--yellow)}
 
-/* Reddit */
-.rg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{background:var(--surface);border:1px solid var(--border);padding:16px}
-.cl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--border)}
-.sr{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.srl{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);width:76px;flex-shrink:0}
-.srb{flex:1;height:4px;background:var(--border)}
+/* ── REDDIT ── */
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--surface);border:1px solid var(--border);padding:14px}
+.cl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.sr{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.srl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:68px;flex-shrink:0}
+.srb{flex:1;height:3px;background:var(--border)}
 .srf{height:100%}
-.srp{font-family:'Space Mono',monospace;font-size:11px;width:36px;text-align:right}
+.srp{font-family:'Space Mono',monospace;font-size:10px;width:32px;text-align:right}
 
-/* PNL */
-.pls{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:16px}
-.plc{background:var(--surface);padding:14px}
-.pll{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.plv{font-family:'Space Mono',monospace;font-size:18px;font-weight:700}
+/* ── PORTFOLIO ── */
 table{width:100%;border-collapse:collapse}
-tr{border-bottom:1px solid var(--border);transition:background .15s}
+tr{border-bottom:1px solid var(--border)}
 tr:last-child{border-bottom:none}
-tr:hover{background:var(--surface2)}
-td{padding:10px 7px;font-family:'Space Mono',monospace;font-size:12px}
-.cn{display:flex;align-items:center;gap:8px}
-.cd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.ct{color:var(--muted);font-size:10px}
+td{padding:9px 6px;font-family:'Space Mono',monospace;font-size:11px}
+.cn{display:flex;align-items:center;gap:7px}
+.cd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ct{color:var(--muted);font-size:9px}
 
-/* Preview */
-.pvg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.pvc{background:var(--surface);border:1px solid var(--border);padding:15px}
-.pvt{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:11px}
-.er{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+/* ── PREVIEW ── */
+.pvg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pvc{background:var(--surface);border:1px solid var(--border);padding:13px}
+.pvt{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.er{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)}
 .er:last-child{border-bottom:none}
-.et{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:46px}
-.en{flex:1;font-size:13px}
-.ei{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.et{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);width:42px;flex-shrink:0}
+.en{flex:1;font-size:12px}
+.ei{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .eih{background:var(--red)}.eim{background:var(--yellow)}.eil{background:var(--muted)}
 
-.con{background:var(--surface);border:1px solid var(--accent);padding:24px;margin:24px 0;position:relative}
-.con::before{content:'ANALYST VIEW';position:absolute;top:-1px;left:20px;background:var(--accent);color:var(--bg);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;padding:3px 8px;font-weight:700}
+/* ── CONCLUSION ── */
+.con{background:var(--surface);border:1px solid var(--accent);padding:20px;margin:20px 0;position:relative}
+.con::before{content:'ANALYST VIEW';position:absolute;top:-1px;left:18px;background:var(--accent);color:var(--bg);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;padding:3px 7px;font-weight:700}
 .con p{font-size:13px;line-height:1.8;margin-bottom:8px}
 .con p:last-child{margin-bottom:0}
 
-footer{padding:22px 0;border-top:1px solid var(--border)}
-.fi{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);flex-wrap:wrap;gap:8px}
-.disc{font-size:11px;color:var(--muted);line-height:1.6;margin-top:11px;padding-top:11px;border-top:1px solid var(--border);font-style:italic}
+/* ── FOOTER ── */
+footer{padding:20px 0 80px;border-top:1px solid var(--border)}
+.fi{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);flex-wrap:wrap;gap:6px}
+.disc{font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-style:italic}
 
 .sk{background:linear-gradient(90deg,var(--border) 25%,var(--surface2) 50%,var(--border) 75%);background-size:200% 100%;animation:shim 1.5s infinite;border-radius:2px;display:inline-block}
 @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-@media(max-width:900px){
-  .grid2,.grid3,.pg,.rg,.pvg{grid-template-columns:1fr}
-  .pls{grid-template-columns:1fr 1fr}
+/* ── MOBILE SPECIFIC ── */
+@media(max-width:768px){
+  .mob-nav{display:block}
+  .pg{grid-template-columns:1fr}
+  .rg{grid-template-columns:1fr}
+  .pvg{grid-template-columns:1fr}
+  .chart-tab{font-size:10px;padding:9px 13px}
+  footer{padding-bottom:90px}
+  .con p{font-size:12px}
+  .ntx{font-size:12px}
+}
+@media(max-width:480px){
+  h1{font-size:28px}
+  .pg{grid-template-columns:1fr}
+  td{font-size:10px;padding:7px 4px}
 }
 </style>
 </head>
@@ -146,40 +180,31 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
   <div class="hi">
     <div class="logo">MARKET·ANALYST // v3.0</div>
     <div class="hr">
-      <div class="live-badge"><div class="dot" style="margin:0"></div>TradingView LIVE</div>
+      <div class="live-badge"><div class="dot" style="margin:0;animation:pulse 2s infinite"></div>TV LIVE</div>
       <div class="mono" id="ut">--:--:--</div>
     </div>
   </div>
 </header>
 
-<!-- ① TradingView 行情跑馬燈（完全替換舊的） -->
+<!-- ① TradingView 行情跑馬燈 -->
 <div class="tv-strip">
   <div class="tradingview-widget-container">
     <div class="tradingview-widget-container__widget"></div>
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-    {
-      "symbols": [
-        {"proName":"BINANCE:BTCUSDT","title":"BTC"},
-        {"proName":"BINANCE:ETHUSDT","title":"ETH"},
-        {"proName":"BINANCE:SOLUSDT","title":"SOL"},
-        {"proName":"BINANCE:XRPUSDT","title":"XRP"},
-        {"proName":"BINANCE:BNBUSDT","title":"BNB"},
-        {"proName":"BINANCE:AVAXUSDT","title":"AVAX"},
-        {"proName":"BINANCE:DOGEUSDT","title":"DOGE"},
-        {"proName":"BINANCE:LINKUSDT","title":"LINK"},
-        {"proName":"BINANCE:ADAUSDT","title":"ADA"},
-        {"proName":"NASDAQ:QQQ","title":"QQQ"},
-        {"proName":"SP:SPX","title":"S&P500"},
-        {"proName":"TVC:GOLD","title":"黃金"},
-        {"proName":"TVC:VIX","title":"VIX"},
-        {"proName":"FX:USDTWD","title":"USD/TWD"}
-      ],
-      "showSymbolLogo": true,
-      "isTransparent": false,
-      "displayMode": "adaptive",
-      "colorTheme": "dark",
-      "locale": "zh_TW"
-    }
+    {"symbols":[
+      {"proName":"BINANCE:BTCUSDT","title":"BTC"},
+      {"proName":"BINANCE:ETHUSDT","title":"ETH"},
+      {"proName":"BINANCE:SOLUSDT","title":"SOL"},
+      {"proName":"BINANCE:XRPUSDT","title":"XRP"},
+      {"proName":"BINANCE:BNBUSDT","title":"BNB"},
+      {"proName":"BINANCE:AVAXUSDT","title":"AVAX"},
+      {"proName":"BINANCE:DOGEUSDT","title":"DOGE"},
+      {"proName":"NASDAQ:QQQ","title":"QQQ"},
+      {"proName":"SP:SPX","title":"S&P500"},
+      {"proName":"TVC:GOLD","title":"黃金"},
+      {"proName":"TVC:VIX","title":"VIX"},
+      {"proName":"FX:USDTWD","title":"USD/TWD"}
+    ],"showSymbolLogo":true,"isTransparent":false,"displayMode":"adaptive","colorTheme":"dark","locale":"zh_TW"}
     </script>
   </div>
 </div>
@@ -188,96 +213,61 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
 
   <!-- HERO -->
   <div class="hero">
-    <div class="rlabel">盤前日報 · PRE-MARKET REPORT · LIVE</div>
+    <div class="rlabel">盤前日報 · LIVE</div>
     <h1>加密貨幣 &<br><em>宏觀市場</em> 分析</h1>
-    <p class="sub">所有圖表、價格、技術信號均由 <strong>TradingView</strong> 提供即時數據，無需任何 API Key，台灣完全可用。恐貪指數每 10 秒更新。</p>
-
+    <p class="sub">圖表、價格、技術信號均由 TradingView 即時提供。恐貪指數每 10 秒更新。</p>
     <div class="badges">
-      <div class="badge-item b-tv">📊 TradingView 即時圖表</div>
-      <div class="badge-item b-tv">📊 TradingView 技術分析</div>
-      <div class="badge-item b-tv">📊 TradingView 熱力圖</div>
-      <div class="badge-item b-tv">📊 TradingView 行情跑馬燈</div>
+      <div class="badge-item b-tv">📊 K線 + 技術分析</div>
+      <div class="badge-item b-tv">📊 板塊熱力圖</div>
       <div class="badge-item b-10s" id="fgBadge">🔄 恐貪指數：載入中</div>
     </div>
   </div>
 
-  <!-- 01 MARKET OVERVIEW — TradingView 報價 -->
-  <div class="sec">
-    <div class="sh"><div class="sn">01</div><h2>市場即時報價</h2><div class="st tv">📊 TradingView LIVE</div></div>
-
-    <!-- TradingView Market Overview Widget -->
-    <div class="tv-box" style="margin-bottom:16px">
-      <div class="tv-title">市場概覽 · 加密 + 股市 + 商品</div>
+  <!-- 01 MARKET OVERVIEW -->
+  <div class="sec" id="s-market">
+    <div class="sh"><div class="sn">01</div><h2>市場報價</h2><div class="st tv">TV LIVE</div></div>
+    <div class="tv-box">
+      <div class="tv-title">市場概覽 · 加密 + 美股 + 商品</div>
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-        {
-          "colorTheme": "dark",
-          "dateRange": "12M",
-          "showChart": true,
-          "locale": "zh_TW",
-          "width": "100%",
-          "height": 400,
-          "largeChartUrl": "",
-          "isTransparent": false,
-          "showSymbolLogo": true,
-          "showFloatingTooltip": true,
-          "plotLineColorGrowing": "rgba(0, 255, 136, 1)",
-          "plotLineColorFalling": "rgba(255, 51, 102, 1)",
-          "gridLineColor": "rgba(42, 42, 58, 1)",
-          "scaleFontColor": "rgba(106, 106, 128, 1)",
-          "belowLineFillColorGrowing": "rgba(0, 255, 136, 0.12)",
-          "belowLineFillColorFalling": "rgba(255, 51, 102, 0.12)",
-          "belowLineFillColorGrowingBottom": "rgba(0, 255, 136, 0)",
-          "belowLineFillColorFallingBottom": "rgba(255, 51, 102, 0)",
-          "symbolActiveColor": "rgba(0, 255, 136, 0.12)",
-          "tabs": [
-            {
-              "title": "加密貨幣",
-              "symbols": [
-                {"s":"BINANCE:BTCUSDT","d":"Bitcoin"},
-                {"s":"BINANCE:ETHUSDT","d":"Ethereum"},
-                {"s":"BINANCE:SOLUSDT","d":"Solana"},
-                {"s":"BINANCE:XRPUSDT","d":"XRP"},
-                {"s":"BINANCE:BNBUSDT","d":"BNB"},
-                {"s":"BINANCE:AVAXUSDT","d":"Avalanche"}
-              ],
-              "originalTitle": "Crypto"
-            },
-            {
-              "title": "美股指數",
-              "symbols": [
-                {"s":"SP:SPX","d":"S&P 500"},
-                {"s":"NASDAQ:NDX","d":"Nasdaq 100"},
-                {"s":"DJ:DJI","d":"Dow Jones"},
-                {"s":"TVC:VIX","d":"VIX 恐慌指數"}
-              ],
-              "originalTitle": "Indices"
-            },
-            {
-              "title": "商品 & 外匯",
-              "symbols": [
-                {"s":"TVC:GOLD","d":"黃金"},
-                {"s":"TVC:SILVER","d":"白銀"},
-                {"s":"NYMEX:CL1!","d":"原油"},
-                {"s":"FX:USDTWD","d":"美元/台幣"}
-              ],
-              "originalTitle": "Commodities"
-            }
-          ]
-        }
+        {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"zh_TW","width":"100%","height":420,"isTransparent":false,"showSymbolLogo":true,"showFloatingTooltip":true,
+        "plotLineColorGrowing":"rgba(0,255,136,1)","plotLineColorFalling":"rgba(255,51,102,1)",
+        "gridLineColor":"rgba(42,42,58,1)","scaleFontColor":"rgba(106,106,128,1)",
+        "belowLineFillColorGrowing":"rgba(0,255,136,0.1)","belowLineFillColorFalling":"rgba(255,51,102,0.1)",
+        "belowLineFillColorGrowingBottom":"rgba(0,255,136,0)","belowLineFillColorFallingBottom":"rgba(255,51,102,0)",
+        "symbolActiveColor":"rgba(0,255,136,0.1)",
+        "tabs":[
+          {"title":"加密貨幣","symbols":[
+            {"s":"BINANCE:BTCUSDT","d":"Bitcoin"},{"s":"BINANCE:ETHUSDT","d":"Ethereum"},
+            {"s":"BINANCE:SOLUSDT","d":"Solana"},{"s":"BINANCE:XRPUSDT","d":"XRP"},
+            {"s":"BINANCE:BNBUSDT","d":"BNB"},{"s":"BINANCE:AVAXUSDT","d":"Avalanche"}
+          ],"originalTitle":"Crypto"},
+          {"title":"美股指數","symbols":[
+            {"s":"SP:SPX","d":"S&P 500"},{"s":"NASDAQ:NDX","d":"Nasdaq 100"},
+            {"s":"DJ:DJI","d":"Dow Jones"},{"s":"TVC:VIX","d":"VIX"}
+          ],"originalTitle":"Indices"},
+          {"title":"商品 & 外匯","symbols":[
+            {"s":"TVC:GOLD","d":"黃金"},{"s":"TVC:SILVER","d":"白銀"},
+            {"s":"NYMEX:CL1!","d":"原油"},{"s":"FX:USDTWD","d":"USD/TWD"}
+          ],"originalTitle":"Commodities"}
+        ]}
         </script>
       </div>
     </div>
-
-    <!-- Fear & Greed -->
     <div class="fg-wrap">
-      <div class="fg-label">恐貪指數 · Fear & Greed · 每10秒更新</div>
-      <div class="mv" id="fgv" style="color:var(--yellow)"><span class="sk" style="width:70px;height:50px"> </span></div>
-      <div class="ml" id="fgl">載入中...</div>
-      <div class="mb"><div class="mf"></div><div class="mc" id="fgc" style="left:50%"></div></div>
-      <div class="ms"><span>0 極度恐懼</span><span>50 中性</span><span>100 極度貪婪</span></div>
-      <div style="margin-top:14px;padding:11px;background:var(--surface2);border-left:2px solid var(--yellow)">
+      <div class="fg-label">恐貪指數 · Fear & Greed</div>
+      <div style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap">
+        <div>
+          <div class="mv" id="fgv" style="color:var(--yellow)"><span class="sk" style="width:64px;height:48px"> </span></div>
+          <div class="ml" id="fgl">載入中...</div>
+        </div>
+        <div style="flex:1;min-width:180px">
+          <div class="mb"><div class="mf"></div><div class="mc" id="fgc" style="left:50%"></div></div>
+          <div class="ms"><span>0 恐懼</span><span>50</span><span>100 貪婪</span></div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:var(--surface2);border-left:2px solid var(--yellow)">
         <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:3px">分析師解讀</div>
         <div style="font-size:12px;line-height:1.6" id="fga">載入中...</div>
       </div>
@@ -285,76 +275,148 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
   </div>
 
   <!-- 02 BREAKING NEWS -->
-  <div class="sec">
-    <div class="sh"><div class="sn">02</div><h2>突發新聞</h2><div class="st">TODAY · 2026-03-17</div></div>
-    <div class="ni"><div class="nt">06:30<br>EDT</div><div class="ntx">BTC 昨日急漲至 $74,300 創 40 天新高，30 分鐘內觸發逾 1.13 億美元空頭爆倉，多頭力道強勁。</div><div class="nim ih">高影響</div></div>
-    <div class="ni"><div class="nt">05:12<br>EDT</div><div class="ntx">以太坊 ETF 本週大額淨流入，Bitmine 持倉達 460 萬 ETH，同時維持 12 億美元現金持續增持。</div><div class="nim ih">高影響</div></div>
-    <div class="ni"><div class="nt">04:45<br>EDT</div><div class="ntx">Metaplanet 完成 2.55 億美元融資，加速比特幣儲備計劃，美日 BTC 財庫策略持續擴張。</div><div class="nim im">中影響</div></div>
-    <div class="ni"><div class="nt">03:20<br>EDT</div><div class="ntx">T. Rowe Price 申請含 DOGE、SHIB 的加密 ETF，SEC 監管框架持續擴大納入資產種類。</div><div class="nim im">中影響</div></div>
+  <div class="sec" id="s-news">
+    <div class="sh"><div class="sn">02</div><h2>突發新聞</h2><div class="st">2026-03-17</div></div>
+    <div class="ni"><div class="nt">06:30<br>EDT</div><div class="ntx">BTC 昨日急漲至 $74,300 創 40 天新高，30 分鐘內觸發逾 1.13 億美元空頭爆倉，多頭力道強勁。</div><div class="nim ih">高</div></div>
+    <div class="ni"><div class="nt">05:12<br>EDT</div><div class="ntx">以太坊 ETF 本週大額淨流入，Bitmine 持倉達 460 萬 ETH，維持 12 億美元現金持續增持。</div><div class="nim ih">高</div></div>
+    <div class="ni"><div class="nt">04:45<br>EDT</div><div class="ntx">Metaplanet 完成 2.55 億美元融資，加速比特幣儲備計劃，美日 BTC 財庫策略持續擴張。</div><div class="nim im">中</div></div>
+    <div class="ni"><div class="nt">03:20<br>EDT</div><div class="ntx">T. Rowe Price 申請含 DOGE、SHIB 的加密 ETF，SEC 監管框架持續擴大納入資產種類。</div><div class="nim im">中</div></div>
   </div>
 
-  <!-- 03 K線圖 -->
-  <div class="sec">
-    <div class="sh"><div class="sn">03</div><h2>K 線圖</h2><div class="st tv">📊 TradingView · RSI + MACD + BB</div></div>
-    <div class="grid2" style="margin-bottom:16px">
-      <div class="tv-box">
-        <div class="tv-title">BTC/USDT · 1H</div>
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-          {"width":"100%","height":380,"symbol":"BINANCE:BTCUSDT","interval":"60","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","backgroundColor":"rgba(17,17,24,1)","gridColor":"rgba(42,42,58,0.5)","hide_top_toolbar":false,"save_image":false,"studies":["RSI@tv-basicstudies","MACD@tv-basicstudies","BB@tv-basicstudies"],"support_host":"https://www.tradingview.com"}
-          </script>
-        </div>
-      </div>
-      <div class="tv-box">
-        <div class="tv-title">ETH/USDT · 1H</div>
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-          {"width":"100%","height":380,"symbol":"BINANCE:ETHUSDT","interval":"60","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","backgroundColor":"rgba(17,17,24,1)","gridColor":"rgba(42,42,58,0.5)","hide_top_toolbar":false,"save_image":false,"studies":["RSI@tv-basicstudies","MACD@tv-basicstudies","BB@tv-basicstudies"],"support_host":"https://www.tradingview.com"}
-          </script>
-        </div>
+  <!-- 03 K線圖 — 分頁切換 + 指標切換 -->
+  <div class="sec" id="s-chart">
+    <div class="sh"><div class="sn">03</div><h2>K 線圖</h2><div class="st tv">📊 TradingView</div></div>
+
+    <!-- 幣種分頁 -->
+    <div class="chart-tabs" id="chartTabs">
+      <button class="chart-tab active" onclick="switchChart('btc',this)">BTC/USDT</button>
+      <button class="chart-tab" onclick="switchChart('eth',this)">ETH/USDT</button>
+      <button class="chart-tab" onclick="switchChart('sol',this)">SOL/USDT</button>
+      <button class="chart-tab" onclick="switchChart('xrp',this)">XRP/USDT</button>
+      <button class="chart-tab" onclick="switchChart('bnb',this)">BNB/USDT</button>
+    </div>
+
+    <!-- 指標切換 -->
+    <div style="margin-bottom:12px">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:8px">指標選擇（點擊切換）：</div>
+      <div class="indicator-row" id="indRow">
+        <button class="ind-toggle on" data-studies='["RSI@tv-basicstudies"]' onclick="toggleInd(this)">RSI</button>
+        <button class="ind-toggle on" data-studies='["MACD@tv-basicstudies"]' onclick="toggleInd(this)">MACD</button>
+        <button class="ind-toggle" data-studies='["BB@tv-basicstudies"]' onclick="toggleInd(this)">布林帶</button>
+        <button class="ind-toggle" data-studies='["MASimple@tv-basicstudies"]' onclick="toggleInd(this)">MA</button>
+        <button class="ind-toggle" data-studies='["Volume@tv-basicstudies"]' onclick="toggleInd(this)">成交量</button>
       </div>
     </div>
-    <div class="tv-box">
-      <div class="tv-title">SOL/USDT · 1H</div>
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-        {"width":"100%","height":300,"symbol":"BINANCE:SOLUSDT","interval":"60","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","backgroundColor":"rgba(17,17,24,1)","gridColor":"rgba(42,42,58,0.5)","hide_top_toolbar":false,"save_image":false,"studies":["RSI@tv-basicstudies","MACD@tv-basicstudies"],"support_host":"https://www.tradingview.com"}
-        </script>
+
+    <!-- 時間框架 -->
+    <div style="margin-bottom:14px">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:8px">時間週期：</div>
+      <div class="indicator-row" id="tfRow">
+        <button class="ind-toggle" data-tf="15" onclick="switchTF(this)">15分</button>
+        <button class="ind-toggle on" data-tf="60" onclick="switchTF(this)">1小時</button>
+        <button class="ind-toggle" data-tf="240" onclick="switchTF(this)">4小時</button>
+        <button class="ind-toggle" data-tf="D" onclick="switchTF(this)">日線</button>
+        <button class="ind-toggle" data-tf="W" onclick="switchTF(this)">週線</button>
+      </div>
+    </div>
+
+    <!-- Chart panels -->
+    <div id="btc-panel" class="chart-panel active">
+      <div class="tv-box">
+        <div class="tv-title" id="chart-title-btc">BTC/USDT · 1H · RSI + MACD</div>
+        <div id="chart-container-btc"></div>
+      </div>
+    </div>
+    <div id="eth-panel" class="chart-panel">
+      <div class="tv-box">
+        <div class="tv-title" id="chart-title-eth">ETH/USDT · 1H · RSI + MACD</div>
+        <div id="chart-container-eth"></div>
+      </div>
+    </div>
+    <div id="sol-panel" class="chart-panel">
+      <div class="tv-box">
+        <div class="tv-title" id="chart-title-sol">SOL/USDT · 1H · RSI + MACD</div>
+        <div id="chart-container-sol"></div>
+      </div>
+    </div>
+    <div id="xrp-panel" class="chart-panel">
+      <div class="tv-box">
+        <div class="tv-title" id="chart-title-xrp">XRP/USDT · 1H · RSI + MACD</div>
+        <div id="chart-container-xrp"></div>
+      </div>
+    </div>
+    <div id="bnb-panel" class="chart-panel">
+      <div class="tv-box">
+        <div class="tv-title" id="chart-title-bnb">BNB/USDT · 1H · RSI + MACD</div>
+        <div id="chart-container-bnb"></div>
       </div>
     </div>
   </div>
 
   <!-- 04 技術分析信號 -->
-  <div class="sec">
-    <div class="sh"><div class="sn">04</div><h2>技術分析信號</h2><div class="st tv">📊 TradingView · 買入/賣出</div></div>
-    <div class="grid3">
+  <div class="sec" id="s-ta">
+    <div class="sh"><div class="sn">04</div><h2>技術分析信號</h2><div class="st tv">📊 TradingView</div></div>
+
+    <!-- TA 幣種分頁 -->
+    <div class="chart-tabs">
+      <button class="chart-tab active" onclick="switchTA('btc',this)">BTC</button>
+      <button class="chart-tab" onclick="switchTA('eth',this)">ETH</button>
+      <button class="chart-tab" onclick="switchTA('sol',this)">SOL</button>
+      <button class="chart-tab" onclick="switchTA('xrp',this)">XRP</button>
+      <button class="chart-tab" onclick="switchTA('bnb',this)">BNB</button>
+    </div>
+
+    <div id="ta-btc-panel" class="chart-panel active">
       <div class="tv-box">
-        <div class="tv-title">BTC/USDT 技術分析</div>
+        <div class="tv-title">BTC/USDT · 技術分析 · 買入/賣出信號</div>
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1h","width":"100%","isTransparent":false,"height":420,"symbol":"BINANCE:BTCUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
+          {"interval":"1h","width":"100%","isTransparent":false,"height":450,"symbol":"BINANCE:BTCUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
           </script>
         </div>
       </div>
+    </div>
+    <div id="ta-eth-panel" class="chart-panel">
       <div class="tv-box">
-        <div class="tv-title">ETH/USDT 技術分析</div>
+        <div class="tv-title">ETH/USDT · 技術分析 · 買入/賣出信號</div>
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1h","width":"100%","isTransparent":false,"height":420,"symbol":"BINANCE:ETHUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
+          {"interval":"1h","width":"100%","isTransparent":false,"height":450,"symbol":"BINANCE:ETHUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
           </script>
         </div>
       </div>
+    </div>
+    <div id="ta-sol-panel" class="chart-panel">
       <div class="tv-box">
-        <div class="tv-title">SOL/USDT 技術分析</div>
+        <div class="tv-title">SOL/USDT · 技術分析</div>
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1h","width":"100%","isTransparent":false,"height":420,"symbol":"BINANCE:SOLUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
+          {"interval":"1h","width":"100%","isTransparent":false,"height":450,"symbol":"BINANCE:SOLUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+    </div>
+    <div id="ta-xrp-panel" class="chart-panel">
+      <div class="tv-box">
+        <div class="tv-title">XRP/USDT · 技術分析</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1h","width":"100%","isTransparent":false,"height":450,"symbol":"BINANCE:XRPUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+    </div>
+    <div id="ta-bnb-panel" class="chart-panel">
+      <div class="tv-box">
+        <div class="tv-title">BNB/USDT · 技術分析</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1h","width":"100%","isTransparent":false,"height":450,"symbol":"BINANCE:BNBUSDT","showIntervalTabs":true,"displayMode":"single","locale":"zh_TW","colorTheme":"dark"}
           </script>
         </div>
       </div>
@@ -362,36 +424,36 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
   </div>
 
   <!-- 05 板塊熱力圖 -->
-  <div class="sec">
-    <div class="sh"><div class="sn">05</div><h2>加密板塊熱力圖</h2><div class="st tv">📊 TradingView LIVE</div></div>
+  <div class="sec" id="s-heat">
+    <div class="sh"><div class="sn">05</div><h2>板塊熱力圖</h2><div class="st tv">📊 TradingView LIVE</div></div>
     <div class="tv-box">
-      <div class="tv-title">加密貨幣市場熱力圖 · 按市值 · 即時漲跌</div>
+      <div class="tv-title">加密貨幣市場熱力圖 · 即時漲跌</div>
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
-        {"dataSource":"Crypto","blockSize":"market_cap_calc","blockColor":"change","locale":"zh_TW","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":520}
+        {"dataSource":"Crypto","blockSize":"market_cap_calc","blockColor":"change","locale":"zh_TW","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":500}
         </script>
       </div>
     </div>
   </div>
 
   <!-- 06 POLYMARKET -->
-  <div class="sec">
-    <div class="sh"><div class="sn">06</div><h2>Polymarket 預測市場</h2><div class="st">PREDICTION ODDS</div></div>
+  <div class="sec" id="s-macro">
+    <div class="sh"><div class="sn">06</div><h2>Polymarket 預測</h2><div class="st">ODDS</div></div>
     <div class="pg">
-      <div class="pc"><div class="pq">Fed 3 月 FOMC 是否降息？</div><div class="po"><div class="py" style="width:8%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 8%</span><span class="down">否 92%</span></div><div class="pnote">市場定價 3 月按兵不動機率極高，首次降息預期落在 6 月。</div></div>
-      <div class="pc"><div class="pq">BTC Q1 2026 收盤 $80,000 以上？</div><div class="po"><div class="py" style="width:38%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 38%</span><span class="down">否 62%</span></div><div class="pnote">距季末 2 周需突破 $80K，方向看好但時間緊迫。</div></div>
-      <div class="pc"><div class="pq">美國 Clarity Act 2026 年通過？</div><div class="po"><div class="py" style="width:62%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 62%</span><span class="down">否 38%</span></div><div class="pnote">立法明朗化將釋放大量機構資金，通過機率超過半數。</div></div>
-      <div class="pc"><div class="pq">ETH Q2 是否超越 $3,500？</div><div class="po"><div class="py" style="width:44%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 44%</span><span class="down">否 56%</span></div><div class="pnote">機構 ETF 買盤持續，若 BTC 先突破 ETH 輪動機率大增。</div></div>
+      <div class="pc"><div class="pq">Fed 3 月 FOMC 降息？</div><div class="po"><div class="py" style="width:8%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 8%</span><span class="down">否 92%</span></div><div class="pnote">3 月按兵不動機率極高，首次降息預期落在 6 月。</div></div>
+      <div class="pc"><div class="pq">BTC Q1 收盤 $80K+？</div><div class="po"><div class="py" style="width:38%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 38%</span><span class="down">否 62%</span></div><div class="pnote">距季末 2 周，方向看好但時間緊迫。</div></div>
+      <div class="pc"><div class="pq">Clarity Act 2026 通過？</div><div class="po"><div class="py" style="width:62%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 62%</span><span class="down">否 38%</span></div><div class="pnote">通過機率超半數，長期釋放機構資金。</div></div>
+      <div class="pc"><div class="pq">ETH Q2 超 $3,500？</div><div class="po"><div class="py" style="width:44%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 44%</span><span class="down">否 56%</span></div><div class="pnote">BTC 若先突破，ETH 輪動機率大增。</div></div>
     </div>
   </div>
 
   <!-- 07 REDDIT -->
   <div class="sec">
-    <div class="sh"><div class="sn">07</div><h2>Reddit 社群情緒</h2><div class="st">r/bitcoin · r/wsb</div></div>
+    <div class="sh"><div class="sn">07</div><h2>Reddit 情緒</h2><div class="st">r/bitcoin · r/wsb</div></div>
     <div class="rg">
       <div class="card">
-        <div class="cl">r/Bitcoin 情緒分佈</div>
+        <div class="cl">情緒分佈</div>
         <div class="sr"><div class="srl">極度看多</div><div class="srb"><div class="srf" style="width:35%;background:var(--green)"></div></div><div class="srp up">35%</div></div>
         <div class="sr"><div class="srl">偏多</div><div class="srb"><div class="srf" style="width:28%;background:rgba(0,255,136,.5)"></div></div><div class="srp up">28%</div></div>
         <div class="sr"><div class="srl">中性</div><div class="srb"><div class="srf" style="width:20%;background:var(--muted)"></div></div><div class="srp neutral">20%</div></div>
@@ -400,115 +462,224 @@ footer{padding:22px 0;border-top:1px solid var(--border)}
       </div>
       <div class="card">
         <div class="cl">熱門討論</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font-size:13px">BTC 空頭爆倉 $113M</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 4.2k</span></div>
-          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font-size:13px">Voorhees 買入 2.3 萬 ETH</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 3.1k</span></div>
-          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font-size:13px">T. Rowe Price DOGE ETF</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--yellow)">⚡ 1.8k</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Fed 降息時程辯論</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">💬 1.2k</span></div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid var(--border)"><span style="font-size:12px">BTC 爆倉 $113M</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--green)">🔥 4.2k</span></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid var(--border)"><span style="font-size:12px">Voorhees 買 2.3 萬 ETH</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--green)">🔥 3.1k</span></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid var(--border)"><span style="font-size:12px">DOGE ETF 申請</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--yellow)">⚡ 1.8k</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:12px">Fed 降息辯論</span><span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)">💬 1.2k</span></div>
         </div>
-        <div style="margin-top:11px;padding:9px;background:var(--surface2);border-left:2px solid var(--green)">
-          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:3px">情緒結論</div>
-          <div style="font-size:12px;line-height:1.5">散戶情緒顯著回暖，但仍未達 FOMO 過熱階段，屬健康樂觀。</div>
-        </div>
+        <div style="margin-top:10px;padding:9px;background:var(--surface2);border-left:2px solid var(--green);font-size:12px;line-height:1.5">散戶情緒顯著回暖，尚未達 FOMO 過熱階段，屬健康樂觀。</div>
       </div>
     </div>
   </div>
 
-  <!-- 08 PORTFOLIO -->
-  <div class="sec">
-    <div class="sh"><div class="sn">08</div><h2>模擬持倉損益</h2><div class="st">PORTFOLIO P&L · DEMO</div></div>
-    <div style="padding:14px;background:rgba(255,170,0,.06);border:1px solid rgba(255,170,0,.2);font-family:'Space Mono',monospace;font-size:11px;color:var(--yellow);margin-bottom:16px">
-      ⚠ 此模組需連接 WebSocket 才能即時計算。如需啟用，請告知你的真實持倉數據。
-    </div>
-    <div class="card">
-      <div class="cl">示範組合 · 參考用途</div>
-      <table>
-        <tr><td><div class="cn"><div class="cd" style="background:#f7931a"></div>BTC</div></td><td style="font-size:11px;color:var(--muted)">0.8 BTC</td><td style="font-size:11px">成本 $68,000</td><td style="font-size:11px;color:var(--muted)">需即時價格</td></tr>
-        <tr><td><div class="cn"><div class="cd" style="background:#627eea"></div>ETH</div></td><td style="font-size:11px;color:var(--muted)">12 ETH</td><td style="font-size:11px">成本 $2,450</td><td style="font-size:11px;color:var(--muted)">需即時價格</td></tr>
-        <tr><td><div class="cn"><div class="cd" style="background:#9945ff"></div>SOL</div></td><td style="font-size:11px;color:var(--muted)">50 SOL</td><td style="font-size:11px">成本 $88.00</td><td style="font-size:11px;color:var(--muted)">需即時價格</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <!-- 09 TOMORROW -->
-  <div class="sec">
-    <div class="sh"><div class="sn">09</div><h2>明日展望</h2><div class="st">TOMORROW PREVIEW</div></div>
+  <!-- 08 TOMORROW -->
+  <div class="sec" id="s-preview">
+    <div class="sh"><div class="sn">08</div><h2>明日展望</h2><div class="st">03/18</div></div>
     <div class="pvg">
       <div class="pvc">
-        <div class="pvt">🗓 重要經濟事件 · 03/18</div>
-        <div class="er"><div class="et">08:30</div><div class="en">美國 2 月零售銷售數據</div><div class="ei eih"></div></div>
-        <div class="er"><div class="et">14:00</div><div class="en">FOMC 利率決議（持平預期）</div><div class="ei eih"></div></div>
+        <div class="pvt">🗓 經濟事件</div>
+        <div class="er"><div class="et">08:30</div><div class="en">美國零售銷售數據</div><div class="ei eih"></div></div>
+        <div class="er"><div class="et">14:00</div><div class="en">FOMC 利率決議</div><div class="ei eih"></div></div>
         <div class="er"><div class="et">14:30</div><div class="en">鮑威爾新聞發布會</div><div class="ei eih"></div></div>
-        <div class="er"><div class="et">16:00</div><div class="en">BTC ETF 當日流量數據</div><div class="ei eim"></div></div>
+        <div class="er"><div class="et">16:00</div><div class="en">BTC ETF 流量數據</div><div class="ei eim"></div></div>
       </div>
       <div class="pvc">
-        <div class="pvt">🎯 關鍵價格水位</div>
-        <div class="er"><div class="et" style="color:var(--green)">BTC ▲</div><div class="en">阻力：$76,500 / $80,000</div><div class="ei eih"></div></div>
-        <div class="er"><div class="et" style="color:var(--red)">BTC ▼</div><div class="en">支撐：$71,200 / $68,000</div><div class="ei eim"></div></div>
-        <div class="er"><div class="et" style="color:var(--green)">ETH ▲</div><div class="en">阻力：$2,450 / $2,680</div><div class="ei eim"></div></div>
-        <div class="er"><div class="et" style="color:var(--red)">ETH ▼</div><div class="en">支撐：$2,100 / $1,980</div><div class="ei eil"></div></div>
+        <div class="pvt">🎯 關鍵水位</div>
+        <div class="er"><div class="et" style="color:var(--green)">BTC ▲</div><div class="en">$76,500 / $80,000</div><div class="ei eih"></div></div>
+        <div class="er"><div class="et" style="color:var(--red)">BTC ▼</div><div class="en">$71,200 / $68,000</div><div class="ei eim"></div></div>
+        <div class="er"><div class="et" style="color:var(--green)">ETH ▲</div><div class="en">$2,450 / $2,680</div><div class="ei eim"></div></div>
+        <div class="er"><div class="et" style="color:var(--red)">ETH ▼</div><div class="en">$2,100 / $1,980</div><div class="ei eil"></div></div>
       </div>
     </div>
   </div>
 
   <div class="con">
-    <p>📊 <strong>宏觀背景：</strong>Fed 3 月按兵不動機率達 92%，市場已充分消化。貿易關稅不確定性仍為主要系統性風險，加密與納指相關性維持 0.7 以上，需密切關注鮑威爾明日言論。</p>
-    <p>₿ <strong>BTC 操作策略：</strong>MACD 金叉 + RSI 健康 + 鯨魚持續累積，結構偏多。短線可追，$76,500 阻力附近注意獲利回吐。強支撐 $71,200（200 均線）為加倉參考點。</p>
-    <p>Ξ <strong>ETH 操作策略：</strong>ETF 機構買盤轉強 + 供應緊縮，基本面改善。收復布林中軌後若站穩 $2,300 可積極布局，中期目標 $3,000-$3,500。</p>
-    <p>⚠️ <strong>風險提示：</strong>FOMC 與鮑威爾措辭為明日最大變數。若鷹派言論超預期，短期可能引發 5-10% 回調。建議保留 20-30% 現金倉位，嚴設止損。</p>
+    <p>📊 <strong>宏觀背景：</strong>Fed 3 月按兵不動機率達 92%，市場已充分消化。貿易關稅不確定性仍為主要系統性風險，需密切關注鮑威爾明日言論。</p>
+    <p>₿ <strong>BTC 操作策略：</strong>MACD 金叉 + RSI 健康 + 鯨魚持續累積，結構偏多。短線可追，$76,500 阻力附近注意獲利回吐。強支撐 $71,200 為加倉參考點。</p>
+    <p>Ξ <strong>ETH 操作策略：</strong>ETF 機構買盤轉強，收復布林中軌後若站穩 $2,300 可積極布局，中期目標 $3,000-$3,500。</p>
+    <p>⚠️ <strong>風險提示：</strong>FOMC 為明日最大變數。建議保留 20-30% 現金倉位，嚴設止損。</p>
   </div>
+
 </div>
 
 <footer>
   <div class="c">
     <div class="fi">
-      <span>market-analyst · v3.0 TradingView Edition · <span id="fd"></span></span>
-      <span>圖表：TradingView · 恐貪：Alternative.me</span>
+      <span>market-analyst · v3.0 · <span id="fd"></span></span>
+      <span>TradingView · Alternative.me</span>
     </div>
     <div class="disc">⚠️ 本報告僅供教育與資訊參考，不構成任何投資建議。加密貨幣市場波動極大，投資存在虧損本金之風險。</div>
   </div>
 </footer>
 
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s-market',this)">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      報價
+    </button>
+    <button class="nav-btn" onclick="scrollTo('s-chart',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="3 9 9 9 9 21"/><polyline points="3 15 21 15"/></svg>
+      K線
+    </button>
+    <button class="nav-btn" onclick="scrollTo('s-ta',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      信號
+    </button>
+    <button class="nav-btn" onclick="scrollTo('s-heat',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      熱力
+    </button>
+    <button class="nav-btn" onclick="scrollTo('s-macro',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      宏觀
+    </button>
+  </div>
+</nav>
+
 <script>
-// CLOCK
+// ── CLOCK ──
 function tick(){
   const n=new Date();
-  const el=document.getElementById('ut');
-  if(el)el.textContent=n.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  const fd=document.getElementById('fd');
-  if(fd)fd.textContent=n.toLocaleDateString('zh-TW');
+  document.getElementById('ut').textContent=n.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('fd').textContent=n.toLocaleDateString('zh-TW');
 }
 setInterval(tick,1000);tick();
 
-// FEAR & GREED
+// ── MOBILE NAV SCROLL ──
+function scrollTo(id,btn){
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── CHART STATE ──
+let currentSymbols={btc:'BINANCE:BTCUSDT',eth:'BINANCE:ETHUSDT',sol:'BINANCE:SOLUSDT',xrp:'BINANCE:XRPUSDT',bnb:'BINANCE:BNBUSDT'};
+let currentTF='60';
+let activeIndicators=['RSI@tv-basicstudies','MACD@tv-basicstudies'];
+let currentChartSym='btc';
+let chartLoaded={};
+
+function buildChart(sym){
+  const containerId='chart-container-'+sym;
+  const container=document.getElementById(containerId);
+  if(!container||chartLoaded[sym])return;
+  chartLoaded[sym]=true;
+
+  const studies=JSON.stringify(activeIndicators);
+  const tfLabel={'15':'15分','60':'1H','240':'4H','D':'日線','W':'週線'}[currentTF]||currentTF;
+  const indLabel=activeIndicators.map(s=>s.split('@')[0]).join('+');
+
+  document.getElementById('chart-title-'+sym).textContent=
+    sym.toUpperCase()+'/USDT · '+tfLabel+' · '+indLabel;
+
+  container.innerHTML='';
+  const wrapper=document.createElement('div');
+  wrapper.className='tradingview-widget-container';
+  const inner=document.createElement('div');
+  inner.className='tradingview-widget-container__widget';
+  wrapper.appendChild(inner);
+  container.appendChild(wrapper);
+
+  const script=document.createElement('script');
+  script.type='text/javascript';
+  script.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  script.async=true;
+  script.innerHTML=JSON.stringify({
+    width:'100%',
+    height: window.innerWidth<768?320:460,
+    symbol:currentSymbols[sym],
+    interval:currentTF,
+    timezone:'Asia/Taipei',
+    theme:'dark',
+    style:'1',
+    locale:'zh_TW',
+    backgroundColor:'rgba(17,17,24,1)',
+    gridColor:'rgba(42,42,58,0.5)',
+    hide_top_toolbar:false,
+    save_image:false,
+    studies:activeIndicators,
+    support_host:'https://www.tradingview.com'
+  });
+  wrapper.appendChild(script);
+}
+
+function switchChart(sym,btn){
+  document.querySelectorAll('#chartTabs .chart-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.chart-panel').forEach(p=>{
+    if(p.id===sym+'-panel')p.classList.add('active');
+    else if(['btc-panel','eth-panel','sol-panel','xrp-panel','bnb-panel'].includes(p.id))p.classList.remove('active');
+  });
+  currentChartSym=sym;
+  buildChart(sym);
+}
+
+function rebuildActiveChart(){
+  chartLoaded[currentChartSym]=false;
+  buildChart(currentChartSym);
+}
+
+function toggleInd(btn){
+  const study=JSON.parse(btn.dataset.studies)[0];
+  if(btn.classList.contains('on')){
+    btn.classList.remove('on');
+    activeIndicators=activeIndicators.filter(s=>s!==study);
+  }else{
+    btn.classList.add('on');
+    if(!activeIndicators.includes(study))activeIndicators.push(study);
+  }
+  rebuildActiveChart();
+}
+
+function switchTF(btn){
+  document.querySelectorAll('#tfRow .ind-toggle').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  currentTF=btn.dataset.tf;
+  rebuildActiveChart();
+}
+
+// ── TA TAB SWITCH ──
+function switchTA(sym,btn){
+  const tabs=btn.closest('.chart-tabs');
+  tabs.querySelectorAll('.chart-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const panels=['btc','eth','sol','xrp','bnb'];
+  panels.forEach(s=>{
+    const p=document.getElementById('ta-'+s+'-panel');
+    if(p)p.classList[s===sym?'add':'remove']('active');
+  });
+}
+
+// ── FEAR & GREED ──
 async function fetchFG(){
   try{
     const r=await fetch('https://api.alternative.me/fng/?limit=1');
     const d=await r.json();
-    const v=parseInt(d.data[0].value);
-    const lb=d.data[0].value_classification;
+    const v=parseInt(d.data[0].value),lb=d.data[0].value_classification;
     const lm={'Extreme Fear':'極度恐懼','Fear':'恐懼','Neutral':'中性','Greed':'貪婪','Extreme Greed':'極度貪婪'};
     const cm={'Extreme Fear':'var(--red)','Fear':'var(--yellow)','Neutral':'var(--text)','Greed':'var(--green)','Extreme Greed':'var(--green)'};
     const fgv=document.getElementById('fgv');
-    if(fgv){fgv.textContent=v;fgv.style.color=cm[lb]||'var(--text)';}
+    fgv.textContent=v; fgv.style.color=cm[lb]||'var(--text)';
     const fgl=document.getElementById('fgl');
-    if(fgl){fgl.textContent=lm[lb]||lb;fgl.style.color=cm[lb]||'var(--text)';}
-    const fgc=document.getElementById('fgc');
-    if(fgc)fgc.style.left=v+'%';
+    fgl.textContent=lm[lb]||lb; fgl.style.color=cm[lb]||'var(--text)';
+    document.getElementById('fgc').style.left=v+'%';
     let a='';
-    if(v<=20)a='極端恐懼。歷史數據顯示此位置通常是絕佳買點，但需等待底部確認信號，避免接刀。';
+    if(v<=20)a='極端恐懼。歷史數據顯示此位置通常是絕佳買點，但需等待底部確認信號。';
     else if(v<=40)a='恐懼區間，情緒修復中。此過渡期往往是最好的建倉機會，分批進場風險較低。';
-    else if(v<=60)a='中性偏多，市場情緒健康。無過熱也無恐慌，可正常執行交易計劃。';
-    else if(v<=80)a='貪婪區間，注意市場可能過熱。建議逐步減倉或收緊止損，謹慎追高。';
-    else a='極度貪婪！此區間往往是行情高點，強烈建議分批獲利了結，保留現金。';
-    const fga=document.getElementById('fga');
-    if(fga)fga.textContent=a;
+    else if(v<=60)a='中性偏多，市場情緒健康，可正常執行交易計劃。';
+    else if(v<=80)a='貪婪區間，注意市場可能過熱，建議逐步減倉或收緊止損。';
+    else a='極度貪婪！此區間往往是行情高點，強烈建議分批獲利了結。';
+    document.getElementById('fga').textContent=a;
     const t=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    const b=document.getElementById('fgBadge');
-    if(b)b.textContent=`🔄 恐貪指數 ${v} (${lm[lb]||lb})：${t}`;
-  }catch(e){console.warn('FG failed',e);}
+    document.getElementById('fgBadge').textContent=`🔄 恐貪 ${v}（${lm[lb]||lb}）· ${t}`;
+  }catch(e){console.warn('FG',e);}
 }
 
+// ── INIT ──
+buildChart('btc');
 fetchFG();
 setInterval(fetchFG,10000);
 </script>
