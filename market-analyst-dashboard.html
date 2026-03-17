@@ -236,14 +236,39 @@ footer{padding:20px 0 80px;border-top:1px solid var(--border)}
 
     <!-- 加密報價 -->
     <div id="quote-crypto" class="chart-panel active">
-      <div class="tv-box">
-        <div class="tv-title">加密貨幣即時報價</div>
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-          {"width":"100%","height":450,"defaultColumn":"overview","defaultScreen":"crypto","market":"crypto","showToolbar":true,"colorTheme":"dark","locale":"zh_TW","isTransparent":false}
-          </script>
-        </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div class="tv-box"><div class="tv-title">Bitcoin BTC</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:BTCUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">Ethereum ETH</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:ETHUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">Solana SOL</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:SOLUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">XRP</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:XRPUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">BNB</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:BNBUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">Avalanche AVAX</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:AVAXUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">Dogecoin DOGE</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"BINANCE:DOGEUSDT","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
+        <div class="tv-box"><div class="tv-title">BTC 主導率</div>
+          <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+          {"symbol":"CRYPTOCAP:BTC.D","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}</script></div></div>
       </div>
     </div>
 
