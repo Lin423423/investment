@@ -226,33 +226,118 @@ footer{padding:20px 0 80px;border-top:1px solid var(--border)}
   <!-- 01 MARKET OVERVIEW -->
   <div class="sec" id="s-market">
     <div class="sh"><div class="sn">01</div><h2>市場報價</h2><div class="st tv">TV LIVE</div></div>
-    <div class="tv-box">
-      <div class="tv-title">市場概覽 · 加密 + 美股 + 商品</div>
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-        {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"zh_TW","width":"100%","height":420,"isTransparent":false,"showSymbolLogo":true,"showFloatingTooltip":true,
-        "plotLineColorGrowing":"rgba(0,255,136,1)","plotLineColorFalling":"rgba(255,51,102,1)",
-        "gridLineColor":"rgba(42,42,58,1)","scaleFontColor":"rgba(106,106,128,1)",
-        "belowLineFillColorGrowing":"rgba(0,255,136,0.1)","belowLineFillColorFalling":"rgba(255,51,102,0.1)",
-        "belowLineFillColorGrowingBottom":"rgba(0,255,136,0)","belowLineFillColorFallingBottom":"rgba(255,51,102,0)",
-        "symbolActiveColor":"rgba(0,255,136,0.1)",
-        "tabs":[
-          {"title":"加密貨幣","symbols":[
-            {"s":"BINANCE:BTCUSDT","d":"Bitcoin"},{"s":"BINANCE:ETHUSDT","d":"Ethereum"},
-            {"s":"BINANCE:SOLUSDT","d":"Solana"},{"s":"BINANCE:XRPUSDT","d":"XRP"},
-            {"s":"BINANCE:BNBUSDT","d":"BNB"},{"s":"BINANCE:AVAXUSDT","d":"Avalanche"}
-          ],"originalTitle":"Crypto"},
-          {"title":"美股指數","symbols":[
-            {"s":"SP:SPX","d":"S&P 500"},{"s":"NASDAQ:NDX","d":"Nasdaq 100"},
-            {"s":"DJ:DJI","d":"Dow Jones"},{"s":"TVC:VIX","d":"VIX"}
-          ],"originalTitle":"Indices"},
-          {"title":"商品 & 外匯","symbols":[
-            {"s":"TVC:GOLD","d":"黃金"},{"s":"TVC:SILVER","d":"白銀"},
-            {"s":"NYMEX:CL1!","d":"原油"},{"s":"FX:USDTWD","d":"USD/TWD"}
-          ],"originalTitle":"Commodities"}
-        ]}
-        </script>
+
+    <!-- 報價分頁 -->
+    <div class="chart-tabs" id="quoteTabs" style="margin-bottom:14px">
+      <button class="chart-tab active" onclick="switchQuote('crypto',this)">🪙 加密貨幣</button>
+      <button class="chart-tab" onclick="switchQuote('us',this)">📈 美股指數</button>
+      <button class="chart-tab" onclick="switchQuote('commodity',this)">🥇 商品外匯</button>
+    </div>
+
+    <!-- 加密報價 -->
+    <div id="quote-crypto" class="chart-panel active">
+      <div class="tv-box">
+        <div class="tv-title">加密貨幣即時報價</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+          {"width":"100%","height":450,"defaultColumn":"overview","defaultScreen":"crypto","market":"crypto","showToolbar":true,"colorTheme":"dark","locale":"zh_TW","isTransparent":false}
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!-- 美股指數報價 -->
+    <div id="quote-us" class="chart-panel">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div class="tv-box">
+          <div class="tv-title">S&P 500</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"SP:SPX","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+        <div class="tv-box">
+          <div class="tv-title">Nasdaq 100</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"NASDAQ:NDX","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+        <div class="tv-box">
+          <div class="tv-title">Dow Jones</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"DJ:DJI","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+        <div class="tv-box">
+          <div class="tv-title">VIX 恐慌指數</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"TVC:VIX","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+      </div>
+      <!-- 美股走勢圖 -->
+      <div class="tv-box">
+        <div class="tv-title">S&P 500 走勢圖</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+          {"width":"100%","height":300,"symbol":"SP:SPX","interval":"D","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","backgroundColor":"rgba(17,17,24,1)","gridColor":"rgba(42,42,58,0.5)","hide_top_toolbar":false,"save_image":false,"studies":["RSI@tv-basicstudies"],"support_host":"https://www.tradingview.com"}
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!-- 商品外匯報價 -->
+    <div id="quote-commodity" class="chart-panel">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div class="tv-box">
+          <div class="tv-title">黃金 Gold</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"TVC:GOLD","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+        <div class="tv-box">
+          <div class="tv-title">白銀 Silver</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"TVC:SILVER","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+        <div class="tv-box">
+          <div class="tv-title">原油 WTI</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"NYMEX:CL1!","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
+        <div class="tv-box">
+          <div class="tv-title">美元/台幣</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+            {"symbol":"FX_IDC:USDTWD","width":"100%","colorTheme":"dark","isTransparent":false,"locale":"zh_TW"}
+            </script>
+          </div>
+        </div>
       </div>
     </div>
     <div class="fg-wrap">
@@ -639,6 +724,16 @@ function switchTF(btn){
   btn.classList.add('on');
   currentTF=btn.dataset.tf;
   rebuildActiveChart();
+}
+
+// ── QUOTE TAB SWITCH ──
+function switchQuote(tab,btn){
+  document.querySelectorAll('#quoteTabs .chart-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['crypto','us','commodity'].forEach(t=>{
+    const p=document.getElementById('quote-'+t);
+    if(p)p.classList[t===tab?'add':'remove']('active');
+  });
 }
 
 // ── TA TAB SWITCH ──
