@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>市場分析報告 · LIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0f;--surface:#111118;--surface2:#1a1a24;--border:#2a2a3a;--accent:#00ff88;--text:#e8e8f0;--muted:#6a6a80;--dim:#3a3a50;--red:#ff3366;--green:#00ff88;--yellow:#ffaa00;--blue:#00aaff}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(0,255,136,.04) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(0,170,255,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+  header{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:rgba(10,10,15,.95);backdrop-filter:blur(20px);z-index:100}
+  .hi{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px}
+  .logo{font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.1em}
+  .hr{display:flex;align-items:center;gap:16px}
+  .dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+  .mono{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
+  .spin{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:rot 1s linear infinite;display:none}
+  @keyframes rot{to{transform:rotate(360deg)}}
+  .lbar{height:2px;background:var(--border)}
+  .lfill{height:100%;width:0%;background:var(--accent);transition:width .3s}
+  .c{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  .hero{padding:48px 0 32px;border-bottom:1px solid var(--border)}
+  .rlabel{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+  .rlabel::before{content:'';display:block;width:30px;height:1px;background:var(--accent)}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,52px);line-height:1.05;margin-bottom:14px}
+  h1 em{color:var(--accent);font-style:italic}
+  .sub{font-size:13px;color:var(--muted);max-width:600px;line-height:1.6;font-weight:300}
+  .sbar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:28px 0}
+  .sc{background:var(--surface);padding:16px;transition:background .2s}
+  .sc:hover{background:var(--surface2)}
+  .sl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+  .sv{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;line-height:1}
+  .sch{font-family:'Space Mono',monospace;font-size:11px;margin-top:3px}
+  .up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--yellow)}
+  .sk{background:linear-gradient(90deg,var(--border) 25%,var(--surface2) 50%,var(--border) 75%);background-size:200% 100%;animation:shim 1.5s infinite;border-radius:2px}
+  @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .sec{padding:36px 0;border-bottom:1px solid var(--border)}
+  .sh{display:flex;align-items:baseline;gap:14px;margin-bottom:24px}
+  .sn{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em}
+  h2{font-family:'DM Serif Display',serif;font-size:24px}
+  .st{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);padding:3px 8px;margin-left:auto}
+  .og{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+  .card{background:var(--surface);border:1px solid var(--border);padding:18px}
+  .cl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse}
+  tr{border-bottom:1px solid var(--border);transition:background .15s}
+  tr:last-child{border-bottom:none}
+  tr:hover{background:var(--surface2)}
+  td{padding:11px 7px;font-family:'Space Mono',monospace;font-size:12px}
+  .cn{display:flex;align-items:center;gap:9px}
+  .cd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .ct{color:var(--muted);font-size:10px}
+  .badge{font-size:10px;padding:2px 7px;border:1px solid;letter-spacing:.07em}
+  .bbuy{color:var(--green);border-color:var(--green)}
+  .bsell{color:var(--red);border-color:var(--red)}
+  .bhold{color:var(--yellow);border-color:var(--yellow)}
+  .bwatch{color:var(--blue);border-color:var(--blue)}
+  .mv{font-family:'DM Serif Display',serif;font-size:60px;line-height:1;margin-bottom:4px}
+  .ml{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;margin-bottom:14px}
+  .mb{height:6px;background:var(--border);position:relative;overflow:hidden;margin-bottom:5px}
+  .mf{height:100%;background:linear-gradient(90deg,var(--red) 0%,var(--yellow) 50%,var(--green) 100%)}
+  .mc{position:absolute;top:-3px;width:2px;height:12px;background:var(--text);transition:left 1s ease}
+  .ms{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;color:var(--dim)}
+  .hg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+  .hc{padding:13px 10px;text-align:center;cursor:pointer;transition:opacity .2s}
+  .hc:hover{opacity:.85}
+  .hn{font-size:12px;font-weight:500;margin-bottom:5px}
+  .hp{font-family:'Space Mono',monospace;font-size:15px;font-weight:700}
+  .ni{display:grid;grid-template-columns:55px 1fr auto;gap:14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--border);transition:padding .15s}
+  .ni:last-child{border-bottom:none}
+  .ni:hover{padding-left:6px}
+  .nt{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;padding-top:2px}
+  .ntx{font-size:13px;line-height:1.5}
+  .nim{font-family:'Space Mono',monospace;font-size:9px;padding:3px 7px;border:1px solid;white-space:nowrap;letter-spacing:.07em}
+  .ih{color:var(--red);border-color:var(--red)}
+  .im{color:var(--yellow);border-color:var(--yellow)}
+  .il{color:var(--muted);border-color:var(--border)}
+  .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sig{background:var(--surface);border:1px solid var(--border);padding:16px;position:relative;overflow:hidden}
+  .sig::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .sig.bull::before{background:var(--green)}
+  .sig.bear::before{background:var(--red)}
+  .sig.neut::before{background:var(--yellow)}
+  .sitl{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
+  .siv{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;margin-bottom:4px}
+  .sid{font-size:12px;color:var(--muted);line-height:1.5}
+  .mc2{height:34px;margin-top:9px}
+  .mc2 svg{width:100%;height:100%}
+  @keyframes dl{from{stroke-dashoffset:500}to{stroke-dashoffset:0}}
+  .spk{stroke-dasharray:500;animation:dl 1.5s ease both}
+  .pg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .pc{background:var(--surface);border:1px solid var(--border);padding:16px}
+  .pq{font-size:13px;line-height:1.5;margin-bottom:12px}
+  .po{display:flex;gap:2px;height:8px;margin-bottom:7px}
+  .py{height:100%;background:var(--green);transition:width 1s ease}
+  .pn{height:100%;background:var(--red);flex:1}
+  .pl{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:11px}
+  .pnote{margin-top:9px;font-size:12px;color:var(--muted);line-height:1.5}
+  .rg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .sr{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+  .srl{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);width:78px;flex-shrink:0}
+  .srb{flex:1;height:4px;background:var(--border)}
+  .srf{height:100%;transition:width 1s ease}
+  .srp{font-family:'Space Mono',monospace;font-size:11px;width:38px;text-align:right}
+  .pls{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:18px}
+  .plc{background:var(--surface);padding:16px}
+  .pll{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+  .plv{font-family:'Space Mono',monospace;font-size:19px;font-weight:700}
+  .pvg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .pvc{background:var(--surface);border:1px solid var(--border);padding:16px}
+  .pvt{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .er{display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid var(--border)}
+  .er:last-child{border-bottom:none}
+  .et{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:48px}
+  .en{flex:1;font-size:13px}
+  .ei{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+  .eih{background:var(--red)}.eim{background:var(--yellow)}.eil{background:var(--muted)}
+  .con{background:var(--surface);border:1px solid var(--accent);padding:26px;margin:28px 0;position:relative}
+  .con::before{content:'ANALYST VIEW';position:absolute;top:-1px;left:22px;background:var(--accent);color:var(--bg);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;padding:3px 9px;font-weight:700}
+  .con p{font-size:13px;line-height:1.8;margin-bottom:9px}
+  .con p:last-child{margin-bottom:0}
+  .aerr{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.3);padding:9px 13px;font-family:'Space Mono',monospace;font-size:11px;color:var(--red);margin:16px 0;display:none}
+  footer{padding:24px 0;border-top:1px solid var(--border)}
+  .fi{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;color:var(--dim)}
+  .disc{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-style:italic}
+  @media(max-width:768px){.sbar,.og{grid-template-columns:1fr}.sg,.pg,.rg,.pvg{grid-template-columns:1fr}.hg{grid-template-columns:repeat(2,1fr)}.sbar{grid-template-columns:repeat(3,1fr)}.pls{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="lbar"><div class="lfill" id="lf"></div></div>
+
+<header>
+  <div class="hi">
+    <div class="logo">MARKET·ANALYST // v1.0</div>
+    <div class="hr">
+      <span class="spin" id="spin"></span>
+      <div class="dot"></div>
+      <div class="mono">LIVE DATA</div>
+      <div class="mono" id="ut" style="color:var(--dim)">載入中...</div>
+    </div>
+  </div>
+</header>
+
+<div class="c">
+  <div class="hero">
+    <div class="rlabel">盤前日報 · PRE-MARKET REPORT · LIVE</div>
+    <h1>加密貨幣 &<br><em>宏觀市場</em> 分析</h1>
+    <p class="sub">價格、恐貪指數、板塊熱力圖每 60 秒自動刷新。數據來源：CoinGecko API · Alternative.me API。持倉損益即時計算。</p>
+  </div>
+
+  <div class="aerr" id="aerr">⚠ 部分 API 請求受限，顯示最後快取數據。CoinGecko 免費版每分鐘限速，屬正常現象。</div>
+
+  <!-- STATS BAR -->
+  <div class="sbar">
+    <div class="sc"><div class="sl">BTC/USD</div><div class="sv sk" id="bp" style="min-height:17px;width:85px"> </div><div class="sch" id="bc"> </div></div>
+    <div class="sc"><div class="sl">ETH/USD</div><div class="sv sk" id="ep" style="min-height:17px;width:75px"> </div><div class="sch" id="ec"> </div></div>
+    <div class="sc"><div class="sl">SOL/USD</div><div class="sv sk" id="sp" style="min-height:17px;width:65px"> </div><div class="sch" id="sc2"> </div></div>
+    <div class="sc"><div class="sl">總市值</div><div class="sv sk" id="tm" style="min-height:17px;width:65px"> </div><div class="sch" id="tc"> </div></div>
+    <div class="sc"><div class="sl">BTC主導率</div><div class="sv sk" id="bd" style="min-height:17px;width:55px"> </div><div class="sch" id="bdc" class="neutral"> </div></div>
+  </div>
+
+  <!-- 01 MARKET OVERVIEW -->
+  <div class="sec">
+    <div class="sh"><div class="sn">01</div><h2>市場總覽</h2><div class="st">MARKET OVERVIEW · LIVE</div></div>
+    <div class="og">
+      <div class="card">
+        <div class="cl">主要資產報價 · 即時信號</div>
+        <table>
+          <tr><td><div class="cn"><div class="cd" style="background:#f7931a"></div><div><div>Bitcoin</div><div class="ct">BTC</div></div></div></td><td id="bp2" class="up" style="text-align:right">--</td><td id="bc2" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="bsig">--</span></td></tr>
+          <tr><td><div class="cn"><div class="cd" style="background:#627eea"></div><div><div>Ethereum</div><div class="ct">ETH</div></div></div></td><td id="ep2" style="text-align:right">--</td><td id="ec2" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="esig">--</span></td></tr>
+          <tr><td><div class="cn"><div class="cd" style="background:#9945ff"></div><div><div>Solana</div><div class="ct">SOL</div></div></div></td><td id="sp2" style="text-align:right">--</td><td id="sc3" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="ssig">--</span></td></tr>
+          <tr><td><div class="cn"><div class="cd" style="background:#00aae4"></div><div><div>XRP</div><div class="ct">XRP</div></div></div></td><td id="xp2" style="text-align:right">--</td><td id="xc2" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="xsig">--</span></td></tr>
+          <tr><td><div class="cn"><div class="cd" style="background:#e84142"></div><div><div>Avalanche</div><div class="ct">AVAX</div></div></div></td><td id="ap2" style="text-align:right">--</td><td id="ac2" style="text-align:right;font-size:11px">--</td><td style="text-align:right"><span class="badge" id="asig">--</span></td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="cl">恐貪指數 · LIVE</div>
+        <div class="mv" id="fgv" style="color:var(--yellow)"><span class="sk" style="width:70px;height:54px;display:block"> </span></div>
+        <div class="ml" id="fgl">載入中...</div>
+        <div class="mb"><div class="mf"></div><div class="mc" id="fgc" style="left:50%"></div></div>
+        <div class="ms"><span>0 極度恐懼</span><span>50</span><span>100 貪婪</span></div>
+        <div style="margin-top:14px;padding:11px;background:var(--surface2);border-left:2px solid var(--yellow)">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px">分析師解讀</div>
+          <div style="font-size:12px;line-height:1.5" id="fga">載入中...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 NEWS -->
+  <div class="sec">
+    <div class="sh"><div class="sn">02</div><h2>突發新聞</h2><div class="st">BREAKING NEWS · TODAY</div></div>
+    <div class="ni"><div class="nt">06:30<br>EDT</div><div class="ntx">BTC 昨日急漲至 $74,300 創 40 天新高，30 分鐘內觸發逾 1.13 億美元空頭爆倉，多頭力道強勁。</div><div class="nim ih">高影響</div></div>
+    <div class="ni"><div class="nt">05:12<br>EDT</div><div class="ntx">以太坊 ETF 本週大額淨流入，Bitmine 持倉達 460 萬 ETH，同時維持 12 億美元現金持續增持。</div><div class="nim ih">高影響</div></div>
+    <div class="ni"><div class="nt">04:45<br>EDT</div><div class="ntx">Metaplanet 完成 2.55 億美元融資，加速比特幣儲備計劃，美日 BTC 財庫策略持續擴張。</div><div class="nim im">中影響</div></div>
+    <div class="ni"><div class="nt">03:20<br>EDT</div><div class="ntx">T. Rowe Price 申請含 DOGE、SHIB 的加密 ETF，SEC 監管框架持續擴大納入資產種類。</div><div class="nim im">中影響</div></div>
+  </div>
+
+  <!-- 03 TECHNICAL -->
+  <div class="sec">
+    <div class="sh"><div class="sn">03</div><h2>技術信號</h2><div class="st">TECHNICAL ANALYSIS</div></div>
+    <div class="sg">
+      <div class="sig bull"><div class="sitl">RSI (14日) · BTC</div><div class="siv up">~58</div><div class="sid">從超賣（29）強力反彈，突破 50 均值，動能向上未達超買。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline class="spk" points="0,36 15,38 30,35 45,32 55,28 65,22 80,18 90,14 100,10" fill="none" stroke="#00ff88" stroke-width="1.5"/></svg></div></div>
+      <div class="sig bull"><div class="sitl">MACD · BTC 日線</div><div class="siv up">金叉</div><div class="sid">MACD 穿越信號線向上，柱狀圖由負轉正，日線多頭確立。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline class="spk" points="0,30 20,28 35,25 50,20 65,16 80,12 100,8" fill="none" stroke="#00ff88" stroke-width="1.5"/><polyline points="0,32 35,28 50,23 80,17 100,15" fill="none" stroke="var(--red)" stroke-width="1" stroke-dasharray="3,3"/></svg></div></div>
+      <div class="sig neut"><div class="sitl">SMA 200 · BTC</div><div class="siv neutral">$71,200</div><div class="sid">BTC 站於 200 日均線之上（+4.4%），支撐守住，轉折確認中。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><line x1="0" y1="22" x2="100" y2="22" stroke="var(--yellow)" stroke-width=".8" stroke-dasharray="4,3"/><polyline class="spk" points="0,35 20,30 45,24 65,18 100,10" fill="none" stroke="var(--text)" stroke-width="1.5"/></svg></div></div>
+      <div class="sig bull"><div class="sitl">資金費率 · 永續合約</div><div class="siv neutral">+0.01%</div><div class="sid">由負轉微正，多頭開始主導但未過熱，槓桿擠倉風險低。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><line x1="0" y1="20" x2="100" y2="20" stroke="var(--border)" stroke-width=".5"/><polyline class="spk" points="0,10 25,15 50,22 80,20 100,19" fill="none" stroke="var(--yellow)" stroke-width="1.5"/></svg></div></div>
+      <div class="sig bull"><div class="sitl">布林帶 · ETH</div><div class="siv up">突破中軌</div><div class="sid">ETH 收復布林帶中軌（$2,280），若持穩可望測試上軌 $2,680。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,5 100,5" fill="none" stroke="var(--border)" stroke-width=".8"/><polyline points="0,35 100,35" fill="none" stroke="var(--border)" stroke-width=".8"/><polyline points="0,20 100,20" fill="none" stroke="var(--yellow)" stroke-width=".8" stroke-dasharray="3,2"/><polyline class="spk" points="0,38 40,28 70,18 100,15" fill="none" stroke="#00ff88" stroke-width="1.5"/></svg></div></div>
+      <div class="sig bull"><div class="sitl">鯨魚累積 · 鏈上</div><div class="siv up">+270K BTC</div><div class="sid">30 天鯨魚地址淨買入 27 萬 BTC（~187 億美元），底部信號強烈。</div><div class="mc2"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline class="spk" points="0,38 20,33 45,22 70,11 100,6" fill="none" stroke="#00ff88" stroke-width="1.5"/></svg></div></div>
+    </div>
+  </div>
+
+  <!-- 04 HEATMAP -->
+  <div class="sec">
+    <div class="sh"><div class="sn">04</div><h2>板塊熱力圖</h2><div class="st">SECTOR HEATMAP · LIVE</div></div>
+    <div class="hg" id="hg">
+      <div class="hc sk" style="height:68px"></div><div class="hc sk" style="height:68px"></div>
+      <div class="hc sk" style="height:68px"></div><div class="hc sk" style="height:68px"></div>
+      <div class="hc sk" style="height:68px"></div><div class="hc sk" style="height:68px"></div>
+      <div class="hc sk" style="height:68px"></div><div class="hc sk" style="height:68px"></div>
+    </div>
+  </div>
+
+  <!-- 05 POLYMARKET -->
+  <div class="sec">
+    <div class="sh"><div class="sn">05</div><h2>Polymarket 預測市場</h2><div class="st">PREDICTION ODDS</div></div>
+    <div class="pg">
+      <div class="pc"><div class="pq">Fed 3 月 FOMC 是否降息？</div><div class="po"><div class="py" style="width:8%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 8%</span><span class="down">否 92%</span></div><div class="pnote">市場定價 3 月按兵不動機率極高，首次降息預期落在 6 月。</div></div>
+      <div class="pc"><div class="pq">BTC Q1 2026 收盤 $80,000 以上？</div><div class="po"><div class="py" style="width:38%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 38%</span><span class="down">否 62%</span></div><div class="pnote">距季末 2 周需突破 $80K，方向看好但時間緊迫。</div></div>
+      <div class="pc"><div class="pq">美國 Clarity Act 2026 年通過？</div><div class="po"><div class="py" style="width:62%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 62%</span><span class="down">否 38%</span></div><div class="pnote">立法明朗化將釋放大量機構資金，通過機率超過半數，長期利多。</div></div>
+      <div class="pc"><div class="pq">ETH Q2 是否超越 $3,500？</div><div class="po"><div class="py" style="width:44%"></div><div class="pn"></div></div><div class="pl"><span class="up">是 44%</span><span class="down">否 56%</span></div><div class="pnote">機構 ETF 買盤持續，若 BTC 先突破 ETH 輪動機率大增。</div></div>
+    </div>
+  </div>
+
+  <!-- 06 REDDIT -->
+  <div class="sec">
+    <div class="sh"><div class="sn">06</div><h2>Reddit 社群情緒</h2><div class="st">r/bitcoin · r/wsb</div></div>
+    <div class="rg">
+      <div class="card">
+        <div class="cl">r/Bitcoin 情緒分佈</div>
+        <div class="sr"><div class="srl">極度看多</div><div class="srb"><div class="srf" style="width:35%;background:var(--green)"></div></div><div class="srp up">35%</div></div>
+        <div class="sr"><div class="srl">偏多</div><div class="srb"><div class="srf" style="width:28%;background:rgba(0,255,136,.5)"></div></div><div class="srp up">28%</div></div>
+        <div class="sr"><div class="srl">中性</div><div class="srb"><div class="srf" style="width:20%;background:var(--muted)"></div></div><div class="srp neutral">20%</div></div>
+        <div class="sr"><div class="srl">偏空</div><div class="srb"><div class="srf" style="width:12%;background:rgba(255,51,102,.5)"></div></div><div class="srp down">12%</div></div>
+        <div class="sr"><div class="srl">極度看空</div><div class="srb"><div class="srf" style="width:5%;background:var(--red)"></div></div><div class="srp down">5%</div></div>
+      </div>
+      <div class="card">
+        <div class="cl">熱門討論</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border)"><div style="font-size:13px">BTC 空頭爆倉 $113M</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 4.2k</div></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border)"><div style="font-size:13px">Voorhees 買入 2.3 萬 ETH</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--green)">🔥 3.1k</div></div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border)"><div style="font-size:13px">T. Rowe Price DOGE ETF</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--yellow)">⚡ 1.8k</div></div>
+          <div style="display:flex;justify-content:space-between"><div style="font-size:13px">Fed 降息時程辯論</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">💬 1.2k</div></div>
+        </div>
+        <div style="margin-top:12px;padding:10px;background:var(--surface2);border-left:2px solid var(--green)">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:3px">情緒結論</div>
+          <div style="font-size:12px;line-height:1.5">散戶情緒顯著回暖，但仍未達 FOMO 過熱階段，屬健康樂觀。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 PORTFOLIO -->
+  <div class="sec">
+    <div class="sh"><div class="sn">07</div><h2>模擬持倉損益</h2><div class="st">PORTFOLIO P&L · LIVE CALC</div></div>
+    <div class="pls">
+      <div class="plc"><div class="pll">總資產估值</div><div class="plv up" id="tv">計算中...</div></div>
+      <div class="plc"><div class="pll">浮動損益</div><div class="plv" id="tp">計算中...</div></div>
+      <div class="plc"><div class="pll">整體報酬率</div><div class="plv" id="tr2">計算中...</div></div>
+    </div>
+    <div class="card">
+      <div class="cl">持倉明細 · 示範組合（根據即時價格計算）</div>
+      <table>
+        <tr><td><div class="cn"><div class="cd" style="background:#f7931a"></div>BTC</div></td><td style="font-size:11px;color:var(--muted)">0.8 BTC</td><td style="font-size:11px">成本 $68,000</td><td id="bpp" style="font-size:11px">--</td><td id="bpa" style="font-size:11px">--</td></tr>
+        <tr><td><div class="cn"><div class="cd" style="background:#627eea"></div>ETH</div></td><td style="font-size:11px;color:var(--muted)">12 ETH</td><td style="font-size:11px">成本 $2,450</td><td id="epp" style="font-size:11px">--</td><td id="epa" style="font-size:11px">--</td></tr>
+        <tr><td><div class="cn"><div class="cd" style="background:#9945ff"></div>SOL</div></td><td style="font-size:11px;color:var(--muted)">50 SOL</td><td style="font-size:11px">成本 $88.00</td><td id="spp" style="font-size:11px">--</td><td id="spa" style="font-size:11px">--</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 08 TOMORROW -->
+  <div class="sec">
+    <div class="sh"><div class="sn">08</div><h2>明日展望</h2><div class="st">TOMORROW PREVIEW</div></div>
+    <div class="pvg">
+      <div class="pvc">
+        <div class="pvt">🗓 重要經濟事件 · 03/18</div>
+        <div class="er"><div class="et">08:30</div><div class="en">美國 2 月零售銷售數據</div><div class="ei eih"></div></div>
+        <div class="er"><div class="et">14:00</div><div class="en">FOMC 利率決議（持平預期）</div><div class="ei eih"></div></div>
+        <div class="er"><div class="et">14:30</div><div class="en">鮑威爾新聞發布會</div><div class="ei eih"></div></div>
+        <div class="er"><div class="et">16:00</div><div class="en">BTC ETF 當日流量數據</div><div class="ei eim"></div></div>
+      </div>
+      <div class="pvc">
+        <div class="pvt">🎯 關鍵價格水位</div>
+        <div class="er"><div class="et" style="color:var(--green)">BTC ▲</div><div class="en">阻力：$76,500 / $80,000</div><div class="ei eih"></div></div>
+        <div class="er"><div class="et" style="color:var(--red)">BTC ▼</div><div class="en">支撐：$71,200（200均）/ $68,000</div><div class="ei eim"></div></div>
+        <div class="er"><div class="et" style="color:var(--green)">ETH ▲</div><div class="en">阻力：$2,450 / $2,680（布林上軌）</div><div class="ei eim"></div></div>
+        <div class="er"><div class="et" style="color:var(--red)">ETH ▼</div><div class="en">支撐：$2,100 / $1,980</div><div class="ei eil"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="con">
+    <p>📊 <strong>宏觀背景：</strong>Fed 3 月按兵不動機率達 92%，市場已充分消化。貿易關稅不確定性仍為主要系統性風險，加密與納指相關性維持 0.7 以上，需密切關注鮑威爾明日言論。</p>
+    <p>₿ <strong>BTC 操作策略：</strong>MACD 金叉 + RSI 健康 + 鯨魚持續累積，結構偏多。短線可追，$76,500 阻力附近注意獲利回吐。強支撐 $71,200（200 均線）為加倉參考點。</p>
+    <p>Ξ <strong>ETH 操作策略：</strong>ETF 機構買盤轉強 + 供應緊縮，基本面改善。收復布林中軌後若站穩 $2,300 可積極布局，中期目標 $3,000-$3,500。</p>
+    <p>⚠️ <strong>風險提示：</strong>FOMC 與鮑威爾措辭為明日最大變數。若鷹派言論超預期，短期可能引發 5-10% 回調。建議保留 20-30% 現金倉位，嚴設止損。</p>
+  </div>
+</div>
+
+<footer>
+  <div class="c">
+    <div class="fi"><span>market-analyst · v1.0 · <span id="fd"></span></span><span>繁體中文版 · 數據：CoinGecko / Alternative.me</span></div>
+    <div class="disc">⚠️ 本報告僅供教育與資訊參考，不構成任何投資建議。加密貨幣市場波動極大，投資存在虧損本金之風險。請自行評估風險並諮詢持牌金融顧問。</div>
+  </div>
+</footer>
+
+<script>
+const SECTORS=[
+  {name:'Layer 1',ids:'bitcoin,ethereum,solana,avalanche-2'},
+  {name:'DeFi',ids:'uniswap,aave,curve-dao-token,maker'},
+  {name:'AI Crypto',ids:'fetch-ai,singularitynet,ocean-protocol,near'},
+  {name:'RWA',ids:'chainlink,ondo-finance,centrifuge,maple'},
+  {name:'Meme',ids:'dogecoin,shiba-inu,pepe,floki'},
+  {name:'NFT/Gaming',ids:'axie-infinity,the-sandbox,decentraland,illuvium'},
+  {name:'Layer 2',ids:'matic-network,arbitrum,optimism,starknet'},
+  {name:'Stables',ids:'tether,usd-coin,dai,true-usd'},
+];
+
+function fmt(n){
+  if(n>=1e12)return'$'+(n/1e12).toFixed(2)+'T';
+  if(n>=1e9)return'$'+(n/1e9).toFixed(2)+'B';
+  if(n>=1000)return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return'$'+n.toFixed(n<1?4:2);
+}
+function fp(n){return(n>=0?'▲ +':'▼ ')+Math.abs(n).toFixed(2)+'%'}
+function cc(n){return n>=0?'up':'down'}
+function set(id,html,cls){const e=document.getElementById(id);if(!e)return;e.innerHTML=html;if(cls!==undefined)e.className=cls;}
+function sig(pct){
+  if(pct>3)return{l:'強買',c:'badge bbuy'};
+  if(pct>0)return{l:'買入',c:'badge bbuy'};
+  if(pct>-2)return{l:'觀望',c:'badge bwatch'};
+  if(pct>-5)return{l:'持有',c:'badge bhold'};
+  return{l:'注意',c:'badge bsell'};
+}
+function hc(p){
+  if(p>=3)return'rgba(0,255,136,.25)';
+  if(p>=1)return'rgba(0,255,136,.15)';
+  if(p>=0)return'rgba(0,255,136,.07)';
+  if(p>=-1)return'rgba(255,51,102,.07)';
+  if(p>=-3)return'rgba(255,51,102,.15)';
+  return'rgba(255,51,102,.28)';
+}
+
+async function fetchPrices(){
+  const ids='bitcoin,ethereum,solana,ripple,avalanche-2';
+  const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true&include_market_cap=true`);
+  if(!r.ok)throw new Error('price');
+  return r.json();
+}
+async function fetchGlobal(){
+  const r=await fetch('https://api.coingecko.com/api/v3/global');
+  if(!r.ok)throw new Error('global');
+  const d=await r.json();return d.data;
+}
+async function fetchFG(){
+  const r=await fetch('https://api.alternative.me/fng/?limit=1');
+  if(!r.ok)throw new Error('fg');
+  return r.json();
+}
+async function fetchSector(){
+  const ids=SECTORS.map(s=>s.ids).join(',');
+  const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+  if(!r.ok)throw new Error('sector');
+  return r.json();
+}
+
+function updatePrices(d,g){
+  const c={btc:d.bitcoin,eth:d.ethereum,sol:d.solana,xrp:d.ripple,avax:d['avalanche-2']};
+  const pairs=[
+    {p:'bp',ch:'bc',p2:'bp2',c2:'bc2',sg:'bsig',coin:c.btc},
+    {p:'ep',ch:'ec',p2:'ep2',c2:'ec2',sg:'esig',coin:c.eth},
+    {p:'sp',ch:'sc2',p2:'sp2',c2:'sc3',sg:'ssig',coin:c.sol},
+    {p:null,ch:null,p2:'xp2',c2:'xc2',sg:'xsig',coin:c.xrp},
+    {p:null,ch:null,p2:'ap2',c2:'ac2',sg:'asig',coin:c.avax},
+  ];
+  pairs.forEach(({p,ch,p2,c2,sg,coin})=>{
+    if(!coin)return;
+    const chg=coin.usd_24h_change||0;
+    if(p)set(p,fmt(coin.usd),cc(chg)+' sv');
+    if(ch)set(ch,fp(chg),cc(chg)+' sch');
+    set(p2,fmt(coin.usd),cc(chg));
+    set(c2,fp(chg)+'  ',cc(chg));
+    const s=sig(chg);
+    const el=document.getElementById(sg);
+    if(el){el.textContent=s.l;el.className=s.c;}
+  });
+  if(g){
+    const mc=g.total_market_cap?.usd||0;
+    const mcc=g.market_cap_change_percentage_24h_usd||0;
+    const dom=g.market_cap_percentage?.btc||0;
+    set('tm',fmt(mc),cc(mcc)+' sv');
+    set('tc',fp(mcc),cc(mcc)+' sch');
+    set('bd',dom.toFixed(1)+'%','neutral sv');
+    set('bdc',dom>55?'▲ BTC強勢':'▼ 輪動中',dom>55?'up sch':'neutral sch');
+  }
+  // Portfolio
+  const pos=[
+    {price:c.btc?.usd,qty:.8,cost:68000,pp:'bpp',pa:'bpa'},
+    {price:c.eth?.usd,qty:12,cost:2450,pp:'epp',pa:'epa'},
+    {price:c.sol?.usd,qty:50,cost:88,pp:'spp',pa:'spa'},
+  ];
+  let tv=0,tc2=0;
+  pos.forEach(p=>{
+    if(!p.price)return;
+    const val=p.price*p.qty,cost=p.cost*p.qty,pnl=val-cost,roi=((p.price-p.cost)/p.cost)*100;
+    tv+=val;tc2+=cost;
+    set(p.pp,(roi>=0?'+':'')+roi.toFixed(1)+'%',cc(roi));
+    set(p.pa,(pnl>=0?'+':'')+fmt(pnl),cc(pnl));
+  });
+  const tpnl=tv-tc2,troi=((tv-tc2)/tc2)*100;
+  set('tv',fmt(tv),'plv up');
+  set('tp',(tpnl>=0?'+':'')+fmt(tpnl),'plv '+cc(tpnl));
+  set('tr2',(troi>=0?'+':'')+troi.toFixed(2)+'%','plv '+cc(troi));
+}
+
+function updateFG(d){
+  const v=parseInt(d.data[0].value);
+  const lm={'Extreme Fear':'極度恐懼','Fear':'恐懼','Neutral':'中性','Greed':'貪婪','Extreme Greed':'極度貪婪'};
+  const cm={'Extreme Fear':'var(--red)','Fear':'var(--yellow)','Neutral':'var(--text)','Greed':'var(--green)','Extreme Greed':'var(--green)'};
+  const lb=d.data[0].value_classification;
+  document.getElementById('fgv').textContent=v;
+  document.getElementById('fgv').style.color=cm[lb]||'var(--text)';
+  document.getElementById('fgl').textContent=lm[lb]||lb;
+  document.getElementById('fgl').style.color=cm[lb]||'var(--text)';
+  document.getElementById('fgc').style.left=v+'%';
+  let a='';
+  if(v<=20)a='極端恐懼區間。歷史數據顯示此位置通常是絕佳買點，但需等待底部信號確認。';
+  else if(v<=40)a='恐懼區間，情緒修復中。恐懼轉貪婪的過渡期往往是最好的建倉機會。';
+  else if(v<=60)a='中性偏多，市場情緒健康。沒有過熱也沒有恐慌，可正常執行交易計劃。';
+  else if(v<=80)a='貪婪區間，注意市場可能過熱。建議逐步減倉或收緊止損，謹慎追高。';
+  else a='極度貪婪！此區間往往是行情高點，強烈建議分批獲利了結。';
+  set('fga',a);
+}
+
+function updateHeatmap(d){
+  const g=document.getElementById('hg');
+  g.innerHTML='';
+  SECTORS.forEach(s=>{
+    const ids=s.ids.split(',');
+    let t=0,n=0;
+    ids.forEach(id=>{if(d[id]?.usd_24h_change!=null){t+=d[id].usd_24h_change;n++;}});
+    const avg=n>0?t/n:0;
+    const div=document.createElement('div');
+    div.className='hc';
+    div.style.background=hc(avg);
+    div.innerHTML=`<div class="hn">${s.name}</div><div class="hp ${cc(avg)}">${avg>=0?'+':''}${avg.toFixed(1)}%</div>`;
+    g.appendChild(div);
+  });
+}
+
+let timer;
+async function refresh(){
+  document.getElementById('spin').style.display='inline-block';
+  document.getElementById('lf').style.width='70%';
+  let err=false;
+  try{const[p,g]=await Promise.all([fetchPrices(),fetchGlobal()]);updatePrices(p,g);}catch(e){err=true;console.warn(e);}
+  try{const f=await fetchFG();updateFG(f);}catch(e){err=true;console.warn(e);}
+  try{const s=await fetchSector();updateHeatmap(s);}catch(e){err=true;console.warn(e);}
+  const now=new Date();
+  document.getElementById('ut').textContent='更新 '+now.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('fd').textContent=now.toLocaleDateString('zh-TW');
+  document.getElementById('aerr').style.display=err?'block':'none';
+  document.getElementById('spin').style.display='none';
+  document.getElementById('lf').style.width='100%';
+  setTimeout(()=>{document.getElementById('lf').style.transition='none';document.getElementById('lf').style.width='0%';setTimeout(()=>{document.getElementById('lf').style.transition='width .3s';},50);},500);
+  clearTimeout(timer);
+  timer=setTimeout(refresh,60000);
+}
+
+document.addEventListener('DOMContentLoaded',refresh);
+</script>
+</body>
+</html>
